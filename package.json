@@ -1,0 +1,19 @@
+{
+  "name": "Spotted",
+  "description": "Wydarzenia i informacje w twoim mieście.",
+  "version": "1.0.0",
+  "author": "Adam Wojtaś, Konrad Bartecki",
+  "private": true,
+  "dependencies": {
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "glob": "^7.0.3",
+    "jsonwebtoken": "^5.7.0",
+    "lodash": "^4.6.1",
+    "method-override": "^2.3.5",
+    "mongoose": "^4.4.4",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {}
+}
