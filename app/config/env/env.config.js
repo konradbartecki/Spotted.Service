@@ -9,11 +9,11 @@ module.exports = {
         server: {
             config: {
                 host: {
-                    ip: 'localhost',
+                    ip: '46.101.158.111',
                     port: '3000'
                 },
                 db: {
-                    uri: 'mongodb://localhost/spotted'
+                    uri: 'mongodb://127.0.0.1:27017/spotted'
                 }
             },
             assets: {

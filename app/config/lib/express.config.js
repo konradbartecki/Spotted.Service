@@ -43,5 +43,5 @@ exports.getRoutes = function() {
  * Listen server.
  */
 exports.listenServer = function() {
-    app.listen(env.app.server.config.host.port);
+    app.listen(env.app.server.config.host.port || env.app.server.config.host.ip);
 };

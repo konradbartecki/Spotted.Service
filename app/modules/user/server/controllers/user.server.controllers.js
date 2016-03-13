@@ -7,12 +7,11 @@ var express     = require('express'),
     bcrypt      = require('bcryptjs'),
     userSchema  = require('../models/user.server.models'),
     jwt         = require('jsonwebtoken'),
-    app         = express(),
-    superSecret = app.get('superSecret');
+    app         = express();
 
 
 /**
- * Create user function.
+ * User register function.
  */
 exports.register = function(req, res) {
 
