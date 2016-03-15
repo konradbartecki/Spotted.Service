@@ -1,0 +1,56 @@
+// =============================================================================
+// ALL FORMS
+// =============================================================================
+form {
+  .form-group {
+    label {
+      font-weight: 400;
+      font-size: 13px;
+      color: lighten($dark, 25%);
+    }
+    .form-control {
+      border-radius: 25px;
+      border: 2px solid darken($light, 20%);
+      box-shadow: none;
+      &.input-md {
+        padding: 9px 20px;
+        height: 40px;
+      }
+    }
+  }
+}
+
+// =============================================================================
+// AUTH FORMS
+// =============================================================================
+form.form-auth {
+  padding: 150px 50px 100px;
+  background-color: $white;
+  .form-group {
+    margin-bottom: 20px;
+    label {
+      display: block;
+      margin-top: 10px;
+      line-height: 20px;
+      text-align: right;
+      text-transform: uppercase;
+    }
+  }
+  .btn-group {
+    display: block;
+    overflow: hidden;
+    .btn {
+      width: 50%;
+    }
+  }
+  p {
+    color: lighten($dark, 50%);
+  }
+}
+
+@media screen and(max-width: 767px) {
+  .form-auth {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

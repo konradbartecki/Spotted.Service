@@ -9,16 +9,35 @@ module.exports = {
         server: {
             config: {
                 host: {
-                    ip: '46.101.158.111',
+                    ip: '192.168.1.81',
                     port: '3000'
                 },
                 db: {
-                    uri: 'mongodb://127.0.0.1:27017/spotted'
+                    uri: 'mongodb://localhost/spotted'
                 }
             },
             assets: {
                 routes: ['app/modules/!(core)/server/routes/**/*.js', 'app/modules/core/server/routes/**/*.js'],
                 models: 'app/modules/**/server/models/**/*.js'
+            }
+        },
+        client: {
+            site: {
+                title: 'Spotted',
+                description: 'Wydarzenia, ogłoszenia i informacje w twoim mieście.',
+                stylesheets: {
+                    vendor: '/assets/css/vendor.min.css',
+                    app: '/assets/css/app.min.css'
+                },
+                scripts: {
+                    vendor: '/assets/js/vendor.js',
+                    app: '/assets/js/app.js'
+                }
+            },
+            public: {
+                assets: './public/assets',
+                uploads: './public/uploads',
+                views: 'app/modules/**/client/views/**'
             }
         }
     }

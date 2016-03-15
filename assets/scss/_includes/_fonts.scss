@@ -1,0 +1,89 @@
+// =============================================================================
+// OPEN SANS --- EXTRA BOLD
+// =============================================================================
+@include font-face(
+                Open-Sans,
+                "../fonts/open-sans/opensans-extrabold-webfont",
+                800,
+                normal,
+                ttf woff2 woff
+);
+@include font-face(
+                Open-Sans,
+                "../fonts/open-sans/opensans-extrabolditalic-webfont",
+                800,
+                italic,
+                ttf woff2 woff
+);
+
+// =============================================================================
+// OPEN SANS --- BOLD
+// =============================================================================
+@include font-face(
+                Open-Sans,
+                "../fonts/open-sans/opensans-bold-webfont",
+                700,
+                normal,
+                ttf woff2 woff
+);
+@include font-face(
+                Open-Sans,
+                "../fonts/open-sans/opensans-bolditalic-webfont",
+                700,
+                italic,
+                ttf woff2 woff
+);
+
+// =============================================================================
+// OPEN SANS --- SEMI BOLD
+// =============================================================================
+@include font-face(
+                Open-Sans,
+                "../fonts/open-sans/opensans-semibold-webfont",
+                600,
+                normal,
+                ttf woff2 woff
+);
+@include font-face(
+                Open-Sans,
+                "../fonts/open-sans/opensans-semibolditalic-webfont",
+                600,
+                italic,
+                ttf woff2 woff
+);
+
+// =============================================================================
+// OPEN SANS --- REGULAR
+// =============================================================================
+@include font-face(
+                Open-Sans,
+                "../fonts/open-sans/opensans-regular-webfont",
+                400,
+                normal,
+                ttf woff2 woff
+);
+@include font-face(
+                Open-Sans,
+                "../fonts/open-sans/opensans-regularitalic-webfont",
+                400,
+                italic,
+                ttf woff2 woff
+);
+
+// =============================================================================
+// OPEN SANS --- LIGHT
+// =============================================================================
+@include font-face(
+                Open-Sans,
+                "../fonts/open-sans/opensans-light-webfont",
+                300,
+                normal,
+                ttf woff2 woff
+);
+@include font-face(
+                Open-Sans,
+                "../fonts/open-sans/opensans-lightitalic-webfont",
+                300,
+                italic,
+                ttf woff2 woff
+);

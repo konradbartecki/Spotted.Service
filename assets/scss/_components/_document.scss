@@ -1,0 +1,16 @@
+html, body {
+  width: 100%;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+}
+
+a {
+  &:focus,
+  &:hover {
+    outline: none;
+    text-decoration: none;
+  }
+}

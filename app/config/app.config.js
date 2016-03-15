@@ -6,8 +6,14 @@ var mongoose        = require('./lib/mongoose.config'),
 // Init database connect.
 mongoose.connect();
 
+// Init local variables.
+express.initLocalVariables();
+
 // Init middleware.
 express.initMiddleware();
+
+// Init view engine.
+express.initViewEngine();
 
 // Init server routes.
 express.getRoutes();

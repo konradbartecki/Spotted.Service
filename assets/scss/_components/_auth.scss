@@ -1,0 +1,18 @@
+.site-auth {
+  width: 100%;
+  min-height: 770px;
+  background: $white url('../img/bg-auth.png') no-repeat center right;
+  background-size: cover;
+  .site-welcome-box {
+    margin: 50px 0;
+    padding: 50px;
+    border-radius: 10px;
+    background-color: rgba(255,255,255, .9);
+  }
+}
+
+@media screen and(max-width: 991px) {
+  .site-auth {
+    background: $white;
+  }
+}

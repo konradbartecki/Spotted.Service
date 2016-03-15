@@ -1,0 +1,48 @@
+// =============================================================================
+// MARGIN AND PADDING
+// =============================================================================
+
+@mixin spacing($space, $value) {
+  #{$space}: $value;
+}
+
+@mixin spacing-dir($space, $dir, $value) {
+  #{$space}-#{$dir}: $value;
+}
+
+@for $i from 0 through 10 {
+  @each $space in margin, padding {
+    .#{$space}-#{$i * 5} {
+      @include spacing($space, 0px + $i * 5);
+    }
+    @each $dir in top, right, bottom, left {
+      .#{$space}-#{$dir}-#{$i * 5} {
+        @include spacing-dir($space, $dir, 0px + $i * 5);
+      }
+    }
+  }
+}
+
+// =============================================================================
+// FONT ATTRIBUTES
+// =============================================================================
+
+@mixin size($value) {
+  font-size: $value;
+}
+
+@mixin weight($value) {
+  font-weight: $value;
+}
+
+@for $i from 1 through 9 {
+  .font-weight-#{100 * $i} {
+    @include weight(100 * $i);
+  }
+}
+
+@for $i from 0 through 50 {
+  .font-size-#{0 + $i * 2} {
+    @include size(0px + $i * 2);
+  }
+}

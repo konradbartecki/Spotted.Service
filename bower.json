@@ -1,0 +1,22 @@
+{
+  "name": "Spotted",
+  "description": "Wydarzenia, ogłoszenia i informacje w twoim mieście.",
+  "version": "1.0.0",
+  "author": "Adam Wojtaś, Konrad Bartecki",
+  "private": true,
+  "ignore": [
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "bootstrap": "^3.3.6",
+    "jquery": "^2.2.1",
+    "angular-ui-router": "^0.2.18",
+    "font-awesome": "^4.5.0",
+    "angular-bootstrap": "^1.2.4",
+    "angular": "^1.5.0",
+    "ngstorage": "^0.3.10",
+    "angular-jwt": "^0.0.9"
+  }
+}

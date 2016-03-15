@@ -1,0 +1,60 @@
+.navbar {
+  &.navbar-default {
+    min-height: 70px;
+    margin-bottom: 0;
+    background: rgba(255,255,255,0.8);
+    border: 0 none;
+    .navbar-header {
+      .navbar-brand {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        height: 70px;
+      }
+    }
+    .navbar-nav {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      > li {
+        > a {
+          padding: 5px 20px;
+          border-radius: 25px;
+          border: 2px solid transparent;
+          font-size: 12px;
+          font-weight: 600;
+          text-transform: uppercase;
+          color: lighten($dark, 20%);
+          &:hover {
+            color: lighten($dark, 20%);
+          }
+          &.btn-login {
+            border-color: $blue;
+            color: $blue;
+            transition: all 0.2s ease;
+            &:hover {
+              color: $white;
+              background-color: $blue;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and(max-width: 767px) {
+  .navbar {
+    &.navbar-default {
+      .navbar-header {
+        float: left;
+        width: auto;
+      }
+      .navbar-nav {
+        float: right;
+        margin-right: 0;
+        > li {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

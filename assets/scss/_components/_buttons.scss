@@ -1,0 +1,55 @@
+.btn {
+  border: 0 none;
+  background-color: transparent;
+  border-radius: 25px;
+  padding-left: 20px;
+  padding-right: 20px;
+  transition: all 0.2s ease;
+
+  // SIZES
+  &.btn-xs {
+    font-size: 13px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  &.btn-sm {
+    font-size: 13px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  &.btn-md {
+    font-size: 13px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  &.btn-lg {
+    font-size: 15px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  // COLORS
+  &.btn-success {
+    color: $white;
+    background-color: $green;
+    font-weight: 600;
+    &:hover {
+      background-color: lighten($green, 10%);
+    }
+  }
+  &.btn-primary {
+    color: $white;
+    background-color: $red-2;
+    &:hover {
+      background-color: $red-1;
+    }
+  }
+  &.btn-info {
+    background-color: $blue;
+    &:hover {
+      background-color: lighten($blue, 10%);
+    }
+  }
+
+
+}
