@@ -52,12 +52,12 @@ angular.module(ApplicationConfiguration.applicationModuleName)
     .run(function($state, $rootScope, $window) {
 
         $rootScope.$on('$stateChangeStart', function(e, to) {
-            if(to.data && to.data.requireQuest) {
+            if(to.access && to.access.guest) {
                 if($window.localStorage.getItem('token')) {
                     e.preventDefault();
                     $state.go('home');
                 }
-            } else if (to.data && to.data.requireLogin) {
+            } else if (to.access && to.access.user) {
                 if(!$window.localStorage.getItem('token')) {
                     e.preventDefault();
                     $state.go('login');
@@ -98,8 +98,8 @@ angular.module('users')
 
         return {
             api: {
-                login: 'api/v1/users/login',
-                register: 'api/v1/users/register'
+                login: 'api/v1/auth/signin',
+                register: 'api/v1/auth/signup'
             }
         }
 
@@ -126,41 +126,50 @@ angular.module('users')
     .config(['$stateProvider', function($stateProvider){
 
         $stateProvider
-            .state('user', {
-                url: '/user',
-                data: {
-                    requireLogin: true
+            .state('authentication', {
+                abstract: true,
+                templateUrl: 'app/modules/users/client/views/authentication/authentication.client.view.html',
+                access: {
+                    guest: true,
+                    user: false
                 }
             })
-            .state('login', {
-                url: '/user/login',
-                templateUrl: 'app/modules/users/client/views/login/login.client.view.html',
-                data: {
-                    requireQuest: true
+            .state('authentication.signin', {
+                url: '/signin',
+                templateUrl: 'app/modules/users/client/views/authentication/signin/signin.client.view.html',
+                access: {
+                    guest: true,
+                    user: false
                 }
             })
-            .state('register', {
-                url: '/user/register',
-                templateUrl: 'app/modules/users/client/views/register/register.client.view.html',
-                data: {
-                    requireQuest: true
+            .state('authentication.signup', {
+                url: '/signup',
+                templateUrl: 'app/modules/users/client/views/authentication/signup/signup.client.view.html',
+                access: {
+                    guest: true,
+                    user: false
                 }
             });
 
     }]);
 
 angular.module('core')
-    .controller('headerController', ['$scope', 'userService', function($scope, userService) {
+    .controller('headerController', ['$scope', 'userService', '$window', '$state', function($scope, userService, $window, $state) {
 
         $scope.user = userService.user;
+
+        $scope.logout = function () {
+            $window.localStorage.removeItem('token');
+            $scope.user = false;
+        }
 
     }]);
 
 angular.module('users')
 
-    .controller('loginController', ['$scope', '$http', 'usersFactory', '$window', '$state',
+    .controller('signinController', ['$scope', '$http', 'usersFactory', '$window', '$state',
         function($scope, $http, usersFactory, $window, $state) {
-            $scope.login = function() {
+            $scope.signin = function() {
                 $http({
                     url: usersFactory.api.login,
                     method: 'POST',
@@ -169,22 +178,18 @@ angular.module('users')
                     var status = response.data.status;
                     if(status === 200) {
                         $window.localStorage.setItem('token', response.data.token);
+                        $scope.user = response.user;
                         $state.go('home');
                     } else if(status === 401) {
-                        console.log('Podany adres e-mail lub hasło są nieprawidłowe!');
+                        $scope.error = 'Adres e-mail lub hasło są nieprawidłowe!';
                     }
                 })
             };
         }])
 
-    .controller('registerController', ['$scope', '$http', 'usersFactory', '$state',
+    .controller('signupController', ['$scope', '$http', 'usersFactory', '$state',
         function($scope, $http, usersFactory, $state) {
-            $scope.user = {
-                email: '',
-                password: '',
-                sex: ''
-            };
-            $scope.register = function() {
+            $scope.signup = function() {
                 $http({
                     url: usersFactory.api.register,
                     method: 'POST',
@@ -193,9 +198,9 @@ angular.module('users')
                     console.log($scope.user);
                     var status = response.data.status;
                     if(status === 200) {
-                        $state.go('login');
+                        $state.go('authentication.signin');
                     } else if(status === 409) {
-                        console.log('Do podanego adresu e-mail przypisane jest już konto użytkownika!!');
+                        $scope.error = 'Do podanego adresu e-mail jest już przypisane konto użytkownika w naszym serwisie!';
                     }
                 })
             };

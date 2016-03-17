@@ -8,9 +8,12 @@ body {
 }
 
 a {
+  color: $blue;
+  transition: color 0.2s ease;
   &:focus,
   &:hover {
+    color: $dark;
     outline: none;
-    text-decoration: none;
+    text-decoration: underline;
   }
 }

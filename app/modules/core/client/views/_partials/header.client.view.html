@@ -5,8 +5,26 @@
                 <img src="/assets/img/brand/logo.png" alt="">
             </a>
         </div>
-        <ul class="nav navbar-nav navbar-right" data-ng-hide="user">
-            <li><a href="/user/login" class="btn-login">Zaloguj się</a></li>
+        <ul class="nav navbar-nav hidden-xs">
+            <li><a href="#">Ogłoszenia</a></li>
+            <li><a href="#">Aktualności</a></li>
+            <li><a href="#">Więcej o nas</a></li>
+        </ul>
+        <ul class="navbar-user">
+            <li data-ng-if="!user">
+                <a href="/signin" class="btn btn-sm btn-info btn-outline text-uppercase">
+                    <i class="fa fa-sign-in hidden-lg hidden-md hidden-sm"></i>
+                    <span class="hidden-xs">Zaloguj się</span>
+                </a>
+            </li>
+            <li class="dropdown user-menu" data-ng-if="user">
+                <a class="dropdown-toggle btn btn-sm btn-info btn-outline" data-toggle="dropdown" data-delay="1000" data-close-others="false">
+                    <i class="fa fa-ellipsis-h"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a role="button" data-ng-click="logout()">Wyloguj się</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </nav>

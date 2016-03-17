@@ -1,0 +1,15 @@
+.site-authentication {
+  background: url('../img/bg-auth.png') no-repeat top right;
+  background-size: 100% auto;
+  padding-top: 150px;
+  padding-bottom: 50px;
+  .authentication-box {
+    form {
+      position: relative;
+      padding: 30px;
+      background-color: $white;
+      box-shadow: 0 12px 32px rgba(0,0,0,.1);
+      border-radius: 10px;
+    }
+  }
+}

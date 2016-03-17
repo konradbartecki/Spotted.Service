@@ -13,7 +13,7 @@ var userSchema  = require('../models/users.server.models');
 /**
  * User register function.
  */
-exports.register = function(req, res) {
+exports.signup = function(req, res) {
 
     var date = new Date().getTime();
     date += (60 * 60 * 1000);
@@ -56,7 +56,7 @@ exports.register = function(req, res) {
 /**
  * User login function.
  */
-exports.login = function(req, res) {
+exports.signin = function(req, res) {
 
     userSchema.findOne({
         email: req.body.email

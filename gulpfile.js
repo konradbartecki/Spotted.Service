@@ -28,6 +28,7 @@ gulp.task('js:vendor', function() {
     return gulp.src([
             config.bowerDir + '/jquery/dist/jquery.min.js',
             config.bowerDir + '/bootstrap/dist/js/bootstrap.min.js',
+            config.bowerDir + '/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js',
             config.bowerDir + '/angular/angular.min.js',
             config.bowerDir + '/angular-ui-router/release/angular-ui-router.js',
             config.bowerDir + '/angular-jwt/dist/angular-jwt.js'

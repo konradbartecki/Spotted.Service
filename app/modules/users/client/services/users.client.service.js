@@ -4,8 +4,8 @@ angular.module('users')
 
         return {
             api: {
-                login: 'api/v1/users/login',
-                register: 'api/v1/users/register'
+                login: 'api/v1/auth/signin',
+                register: 'api/v1/auth/signup'
             }
         }
 

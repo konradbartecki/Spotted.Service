@@ -10,6 +10,9 @@
 // HELPERS
 @import '_includes/_helpers.scss';
 
+// ALERTS
+@import '_components/_alerts.scss';
+
 // WELCOME
 @import '_components/_forms.scss';
 
@@ -22,5 +25,5 @@
 // HEADER
 @import '_components/_header.scss';
 
-// WELCOME
-@import '_components/_auth.scss';
+// AUTHENTICATION
+@import '_components/_authentication.scss';

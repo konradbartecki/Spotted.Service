@@ -7,9 +7,15 @@ $black: #000000;
 $dark: #221f1f;
 $light: #f1f1f1;
 
+
+$grey: #7c7c7c;
+$grey-light: #c7c7c7;
+
 $blue: #42a5f5;
+$blue-light: lighten($blue, 10%);
+
 $green: #33ae4a;
+$green-light: lighten($green, 10%);
 
-
-$red-1: #f44336;
-$red-2: #e53935;
+$red: #e53935;
+$red-light: lighten($red, 10%);

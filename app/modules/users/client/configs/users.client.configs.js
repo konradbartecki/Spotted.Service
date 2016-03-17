@@ -13,12 +13,12 @@ angular.module(ApplicationConfiguration.applicationModuleName)
     .run(function($state, $rootScope, $window) {
 
         $rootScope.$on('$stateChangeStart', function(e, to) {
-            if(to.data && to.data.requireQuest) {
+            if(to.access && to.access.guest) {
                 if($window.localStorage.getItem('token')) {
                     e.preventDefault();
                     $state.go('home');
                 }
-            } else if (to.data && to.data.requireLogin) {
+            } else if (to.access && to.access.user) {
                 if(!$window.localStorage.getItem('token')) {
                     e.preventDefault();
                     $state.go('login');

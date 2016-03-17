@@ -1,55 +1,65 @@
 .btn {
-  border: 0 none;
-  background-color: transparent;
-  border-radius: 25px;
   padding-left: 20px;
   padding-right: 20px;
+  background-color: transparent;
+  border: 0 none;
+  border-radius: 25px;
+  font-weight: 600;
+  line-height: 1;
   transition: all 0.2s ease;
-
-  // SIZES
-  &.btn-xs {
-    font-size: 13px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+  &:focus {
+    outline: none!important;
+    box-shadow: none!important;
   }
-  &.btn-sm {
-    font-size: 13px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-  }
-  &.btn-md {
-    font-size: 13px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
-  &.btn-lg {
-    font-size: 15px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-  }
-
-  // COLORS
-  &.btn-success {
-    color: $white;
-    background-color: $green;
-    font-weight: 600;
-    &:hover {
-      background-color: lighten($green, 10%);
+  &.btn- {
+    &xs {
+      padding-top: 7px;
+      padding-bottom: 7px;
+      font-size: 13px;
+    }
+    &sm {
+      padding-top: 9px;
+      padding-bottom: 9px;
+      font-size: 13px;
+    }
+    &md {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      font-size: 14px;
+    }
+    &lg {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      font-size: 15px;
     }
   }
-  &.btn-primary {
-    color: $white;
-    background-color: $red-2;
-    &:hover {
-      background-color: $red-1;
+  &.btn- {
+    &primary {
+      background-color: $red;
+      &:hover {
+        background-color: $red-light;
+      }
+    }
+    &success {
+      background-color: $green;
+      &:hover {
+        background-color: $green-light;
+      }
+    }
+    &info {
+      background-color: $blue;
+      &:hover {
+        background-color: $blue-light;
+      }
+      &.btn-outline {
+        background-color: $white;
+        border: 2px solid $blue;
+        color: $blue;
+        &:hover {
+          background-color: $blue;
+          color: $white;
+        }
+      }
     }
   }
-  &.btn-info {
-    background-color: $blue;
-    &:hover {
-      background-color: lighten($blue, 10%);
-    }
-  }
-
-
 }

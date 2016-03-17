@@ -4,10 +4,10 @@ module.exports = function(app) {
 
     var user = require('../controllers/users.server.controllers');
 
-    app.route('/api/v1/users/register')
-        .post(user.register);
+    app.route('/api/v1/auth/signup')
+        .post(user.signup);
 
-    app.route('/api/v1/users/login')
-        .post(user.login);
+    app.route('/api/v1/auth/signin')
+        .post(user.signin);
 
 };

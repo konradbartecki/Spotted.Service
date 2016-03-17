@@ -1,56 +1,53 @@
-// =============================================================================
-// ALL FORMS
-// =============================================================================
 form {
+  .alert {
+    margin-left: -30px;
+    margin-right: -30px;
+    margin-top: -20px;
+  }
   .form-group {
-    label {
-      font-weight: 400;
-      font-size: 13px;
-      color: lighten($dark, 25%);
-    }
     .form-control {
+      border-color: darken($light, 10%);
       border-radius: 25px;
-      border: 2px solid darken($light, 20%);
       box-shadow: none;
+      padding-left: 20px;
+      padding-right: 20px;
+      &:hover {
+        border-color: $dark;
+      }
+      &:focus {
+        border-color: $blue;
+      }
       &.input-md {
-        padding: 9px 20px;
-        height: 40px;
+        font-size: 13px;
+      }
+    }
+    .radio {
+      label {
+        padding: 0;
+        margin-right: 20px;
+        color: lighten($dark, 30%);
+        font-weight: 600;
+        &::before {
+          margin-right: 10px;
+          font: normal normal normal 16px/1 FontAwesome;
+          content: '\f10c';
+          color: lighten($dark, 30%);
+        }
+      }
+      input[type="radio"] {
+        display: none;
+        &:checked + label {
+          &::before {
+            content: '\f192';
+          }
+        }
       }
     }
   }
-}
-
-// =============================================================================
-// AUTH FORMS
-// =============================================================================
-form.form-auth {
-  padding: 150px 50px 100px;
-  background-color: $white;
-  .form-group {
-    margin-bottom: 20px;
-    label {
-      display: block;
-      margin-top: 10px;
-      line-height: 20px;
-      text-align: right;
-      text-transform: uppercase;
-    }
-  }
-  .btn-group {
-    display: block;
-    overflow: hidden;
-    .btn {
-      width: 50%;
-    }
+  hr {
+    margin: 20px -20px;
   }
   p {
-    color: lighten($dark, 50%);
-  }
-}
-
-@media screen and(max-width: 767px) {
-  .form-auth {
-    padding-left: 0;
-    padding-right: 0;
+    color: $grey;
   }
 }
