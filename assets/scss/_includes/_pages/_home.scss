@@ -1,0 +1,89 @@
+// =============================================================================
+// INTRODUCTION
+// =============================================================================
+.intro {
+  width: 100%;
+  margin-top: -80px;
+  background: url('../img/bg-city.jpg') no-repeat center;
+  background-size: cover;
+  .intro-mask {
+    width: 100%; height: 100%;
+    padding-top: 200px;
+    background-color: rgba(0,0,0,0.7);
+  }
+  .intro-title {
+    color: $white;
+    font-size: 42px;
+    font-weight: 300;
+  }
+  .intro-mockup-browser {
+    overflow: hidden;
+    img {
+      margin-bottom: -150px;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .intro {
+    .intro-mask {
+      padding-top: 100px;
+      padding-bottom: 100px;
+    }
+    .intro-title {
+      font-size: 32px;
+    }
+    .intro-mockup-browser {
+      display: none;
+    }
+  }
+}
+
+// =============================================================================
+// MOBILE
+// =============================================================================
+.mobile {
+  padding-top: 200px;
+  padding-bottom: 200px;
+  background: url('../img/pattern-geometry.png');
+  .mobile-title {
+    margin: 80px 0 50px;
+    font-size: 42px;
+    font-weight: 300;
+    line-height: 1.2;
+    small {
+      display: inline-block;
+      line-height: 1.4;
+      margin-top: 20px;
+    }
+  }
+  .mobile-description {
+    font-size: 14px;
+    line-height: 1.8;
+    color: darken($grey, 10%);
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  .mobile {
+    .mobile-title {
+      font-size: 32px;
+    }
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .mobile {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    text-align: center;
+    .mobile-title {
+      margin-top: 0;
+    }
+    .mobile-buttons {
+      a {
+        margin: 15px;
+      }
+    }
+  }
+}

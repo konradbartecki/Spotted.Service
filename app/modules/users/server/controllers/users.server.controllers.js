@@ -11,7 +11,7 @@ var express     = require('express'),
 var userSchema  = require('../models/users.server.models');
 
 /**
- * User register function.
+ * User sign up function.
  */
 exports.signup = function(req, res) {
 
@@ -23,8 +23,9 @@ exports.signup = function(req, res) {
     var user = new userSchema ({
         email: req.body.email,
         password: hash,
+        created: new Date(date),
         sex: req.body.sex,
-        created: new Date(date)
+        groups: []
     });
 
     userSchema.findOne({
@@ -32,29 +33,27 @@ exports.signup = function(req, res) {
     }, function(err, email) {
         if(!email) {
             user.save(function(err) {
-                if (err)
+                if (err) {
                     // Error unknown.
-                    res.json({
-                        status: 500
-                    });
-
-                // Complete register.
-                res.json({
-                    status: 200
-                })
+                    res.status(500);
+                    res.json({ status: 500 });
+                } else {
+                    // Register complete.
+                    res.status(200);
+                    res.json({ status: 200 });
+                }
             });
         } else {
             // Email exists.
-            res.json({
-                status: 409
-            })
+            res.status(409);
+            res.json({ status: 409 });
         }
     });
 
 };
 
 /**
- * User login function.
+ * User sign in function.
  */
 exports.signin = function(req, res) {
 
@@ -63,24 +62,25 @@ exports.signin = function(req, res) {
     }, function(err, user) {
         if(!user) {
             // Incorrect email.
-            res.json({
-                status: 401
-            })
+            res.status(401);
+            res.json({ status: 401 });
         } else {
-
             if(bcrypt.compareSync(req.body.password, user.password)) {
                 // Token exists 24 hour.
                 var token = jwt.sign({
                     user: {
                         id: user._id,
                         email: user.email,
-                        created: user.created
+                        created: user.created,
+                        sex: user.sex,
+                        groups: user.groups
                     }
-                }, 'token', {
+                }, 'ja6ar66eq3fr75raCrareChuwAfaHaja', {
                     expiresIn: 60 * 60 * 24
                 });
 
                 // Login complete.
+                res.status(200);
                 res.json({
                     status: 200,
                     token: token
@@ -88,9 +88,8 @@ exports.signin = function(req, res) {
 
             } else {
                 // Incorrect password
-                res.json({
-                    status: 401
-                })
+                res.status(401);
+                res.json({ status: 401 });
             }
 
         }

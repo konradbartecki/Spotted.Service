@@ -1,0 +1,100 @@
+.posts {
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  .posts-create {
+    form {
+      .author-picture {
+        width: 40px; height: 40px;
+        border-radius: 50%;
+      }
+      .form-group {
+        position: relative;
+        padding: 15px;
+        background-color: darken($light, 5%);
+        border-radius: 2px;
+        &::before {
+          position: absolute;
+          left: -10px; top: 10px;
+          content: '';
+          width: 0; height: 0;
+          border-top: 10px solid transparent;
+          border-bottom: 10px solid transparent;
+          border-right:10px solid darken($light, 5%);
+        }
+        .form-control {
+          height: 36px;
+          box-shadow: none;
+          border-radius: 2px;
+          background-color: $light;
+          border-color: darken($light, 10%);
+          resize: none;
+          &.ng-not-empty {
+            background-color: $white;
+            height: 100px;
+          }
+          &:focus {
+            background-color: $white;
+            height: 100px;
+          }
+        }
+        .list-group {
+          margin: 10px 0 0;
+          padding: 0;
+          list-style: none;
+          font-size: 0;
+          li {
+            display: inline-block;
+            margin-right: 5px;
+            &.delete {
+              a {
+                border-color: $red;
+                color: $red;
+              }
+            }
+            &:last-child {
+              margin-right: 0;
+              a {
+                width: auto;
+                padding-right: 15px;
+                padding-left: 15px;
+                background-color: $white;
+                border-color: $green;
+                color: $green;
+                &:hover {
+                  color: $white;
+                  background-color: $green;
+                }
+              }
+            }
+            a {
+              display: table-cell;
+              width: 40px; height: 33px;
+              border: 1px solid darken($light, 10%);
+              border-radius: 2px;
+              background-color: $light;
+              color: $grey;
+              vertical-align: middle;
+              text-align: center;
+              font-size: 14px;
+              &.ng-not-empty {
+                color: $green;
+                border-color: $green;
+              }
+              &.disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+              }
+              &:hover {
+                background-color: $white;
+                color: $dark;
+                text-decoration: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}

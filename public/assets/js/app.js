@@ -4,7 +4,10 @@ var ApplicationConfiguration = (function () {
     var applicationModuleName = 'spotted';
     var applicationModuleVendorDependencies = [
         'ui.router',
-        'angular-jwt'
+        'angular-jwt',
+        'ngFileUpload',
+        'ui.bootstrap',
+        'angular-loading-bar'
     ];
 
     var registerModule = function (moduleName, dependencies) {
@@ -21,11 +24,15 @@ var ApplicationConfiguration = (function () {
 
 angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies);
 
-angular.module(ApplicationConfiguration.applicationModuleName).config(['$locationProvider',
-    function ($locationProvider) {
-        $locationProvider.html5Mode(true).hashPrefix('!');
-    }
-]);
+angular.module(ApplicationConfiguration.applicationModuleName)
+    .config(['$locationProvider',
+        function ($locationProvider) {
+            $locationProvider.html5Mode(true).hashPrefix('!');
+        }
+    ])
+    .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+        cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner">Loading...</div>';
+    }]);
 
 angular.element(document).ready(function () {
     //Fixing facebook bug with redirect
@@ -49,48 +56,60 @@ angular.module(ApplicationConfiguration.applicationModuleName)
 
     })
 
-    .run(function($state, $rootScope, $window) {
+    .run(function($state, $rootScope, $window, jwtHelper, $uibModal) {
 
         $rootScope.$on('$stateChangeStart', function(e, to) {
             if(to.access && to.access.guest) {
                 if($window.localStorage.getItem('token')) {
                     e.preventDefault();
-                    $state.go('home');
+                    $state.go('posts');
                 }
             } else if (to.access && to.access.user) {
                 if(!$window.localStorage.getItem('token')) {
                     e.preventDefault();
-                    $state.go('login');
+                    $state.go('home');
+                    $uibModal.open({
+                        animation: false,
+                        templateUrl: 'app/modules/users/client/views/authentication/signin/signin.client.view.html',
+                        controller: 'authController',
+                        size: 'lg'
+                    });
                 }
             }
         });
 
-    })
+        $rootScope.user = false;
 
-    .factory('userService', function(jwtHelper) {
+        $rootScope.$on('$stateChangeStart', function() {
 
-        var token = localStorage.getItem('token');
+            var token = $window.localStorage.getItem('token');
 
-        if(token) {
-            var decodedToken = token && jwtHelper.decodeToken(token);
+            if(token) {
+                var decodedToken = token && jwtHelper.decodeToken(token);
 
-            return {
-                user: decodedToken.user
-            }
-        } else {
-
-            return {
-                user: ''
+                $rootScope.user = decodedToken.user;
             }
 
-        }
+        });
 
     });
 
 ApplicationConfiguration.registerModule('core');
 
+ApplicationConfiguration.registerModule('posts');
+
 ApplicationConfiguration.registerModule('users');
 
+angular.module('posts')
+    .factory('postsFactory', function() {
+
+        return {
+            api: {
+                posts: 'api/v1/posts'
+            }
+        }
+
+    });
 
 angular.module('users')
 
@@ -100,51 +119,25 @@ angular.module('users')
             api: {
                 login: 'api/v1/auth/signin',
                 register: 'api/v1/auth/signup'
+            },
+            messages: {
+                error: {
+                    unknown: 'Coś poszło nie tak. Spróbuj ponownie!',
+                    conflict: 'Wprowadzone dane są niepoprawne. Spróbuj ponownie.',
+                    emailExists: 'Podany adres e-mail jest już zajęty!'
+                }
             }
         }
 
     });
 
 angular.module('core')
-    .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-
-        $urlRouterProvider.otherwise('404');
+    .config(['$stateProvider', function($stateProvider) {
 
         $stateProvider
             .state('home', {
                 url: '/',
-                templateUrl: 'app/modules/core/client/views/home/home.client.view.html'
-            })
-            .state('404', {
-                url: '/404',
-                templateUrl: 'app/modules/core/client/views/error/404.client.view.html'
-            })
-
-    }]);
-
-angular.module('users')
-    .config(['$stateProvider', function($stateProvider){
-
-        $stateProvider
-            .state('authentication', {
-                abstract: true,
-                templateUrl: 'app/modules/users/client/views/authentication/authentication.client.view.html',
-                access: {
-                    guest: true,
-                    user: false
-                }
-            })
-            .state('authentication.signin', {
-                url: '/signin',
-                templateUrl: 'app/modules/users/client/views/authentication/signin/signin.client.view.html',
-                access: {
-                    guest: true,
-                    user: false
-                }
-            })
-            .state('authentication.signup', {
-                url: '/signup',
-                templateUrl: 'app/modules/users/client/views/authentication/signup/signup.client.view.html',
+                templateUrl: 'app/modules/core/client/views/home/home.client.view.html',
                 access: {
                     guest: true,
                     user: false
@@ -153,55 +146,179 @@ angular.module('users')
 
     }]);
 
-angular.module('core')
-    .controller('headerController', ['$scope', 'userService', '$window', '$state', function($scope, userService, $window, $state) {
+angular.module('posts')
+    .config(['$stateProvider', function($stateProvider) {
 
-        $scope.user = userService.user;
-
-        $scope.logout = function () {
-            $window.localStorage.removeItem('token');
-            $scope.user = false;
-        }
+        $stateProvider
+            .state('posts', {
+                url: '/posts',
+                templateUrl: 'app/modules/posts/client/views/posts.client.view.html',
+                access: {
+                    guest: false,
+                    user: true
+                }
+            });
 
     }]);
 
+angular.module('core')
+
+    .controller('coreController', ['$scope', '$state', function($scope, $state) {
+
+        $scope.state = $state;
+
+        $scope.$watch('state.current.name', function(newValue) {
+            $scope.currentState = newValue;
+            if($scope.currentState == 'home') {
+                $scope.isHome = true;
+            } else {
+                $scope.isHome = false;
+            }
+        });
+
+    }])
+
+    .controller('headerController', ['$scope', '$state', '$window', '$rootScope', '$uibModal',
+        function($scope, $state, $window, $rootScope, $uibModal) {
+
+            $scope.signout = function() {
+                $window.localStorage.removeItem('token');
+                $rootScope.user = false;
+                $state.go('home');
+            };
+
+            $scope.openModalAuth = function(tpl) {
+                var modalAuth = $uibModal.open({
+                    animation: false,
+                    templateUrl: 'app/modules/users/client/views/authentication/' + tpl + '/' + tpl + '.client.view.html',
+                    controller: 'authController',
+                    size: 'lg'
+                });
+            };
+
+        }]);
+
+angular.module('posts')
+    .controller('createPostController', ['$scope', '$http', '$window', '$rootScope', 'postsFactory', 'Upload',
+        function($scope, $http, $window, $rootScope, postsFactory, Upload) {
+
+            $scope.post = {
+                user: $rootScope.user.id,
+                image: null
+            };
+
+            $scope.removeImage = function() {
+                $scope.post.image = null;
+            };
+
+            $scope.create = function() {
+                if($scope.post.image == null) {
+                    $http({
+                        url: postsFactory.api.posts,
+                        method: 'POST',
+                        data: $scope.post,
+                        headers: {
+                            'x-access-token': $window.localStorage.getItem('token')
+                        }
+                    }).then(function successCallback(response) {
+                        $scope.post = {};
+                        console.log(response);
+                    }, function errorCallback(response) {
+                        console.log(response);
+                    });
+                } else {
+                    $scope.upload($scope.post);
+                }
+            };
+
+            $scope.upload = function(post) {
+                Upload.upload({
+                    url: 'api/v1/posts',
+                    data: {
+                        description: post.description,
+                        image: post.image,
+                        user: post.user
+                    },
+                    headers: {
+                        'x-access-token': $window.localStorage.getItem('token')
+                    }
+                }).then(function successCallback(response) {
+                    console.log(response);
+                }, function errorCallback(response) {
+                    console.log(response);
+                });
+            };
+
+        }]);
+
 angular.module('users')
+
+    .controller('authController', ['$scope', '$uibModalInstance', '$uibModal', function($scope, $uibModalInstance, $uibModal) {
+
+        $scope.closeModal = function() {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        $scope.switchModal = function(tpl) {
+            $scope.closeModal();
+            $uibModal.open({
+                animation: false,
+                templateUrl: 'app/modules/users/client/views/authentication/' + tpl + '/' + tpl + '.client.view.html',
+                controller: 'authController',
+                size: 'lg'
+            });
+        };
+
+    }])
 
     .controller('signinController', ['$scope', '$http', 'usersFactory', '$window', '$state',
         function($scope, $http, usersFactory, $window, $state) {
+            $scope.message = {};
+
             $scope.signin = function() {
                 $http({
                     url: usersFactory.api.login,
                     method: 'POST',
                     data: $scope.user
-                }).then(function(response) {
-                    var status = response.data.status;
-                    if(status === 200) {
-                        $window.localStorage.setItem('token', response.data.token);
-                        $scope.user = response.user;
-                        $state.go('home');
-                    } else if(status === 401) {
-                        $scope.error = 'Adres e-mail lub hasło są nieprawidłowe!';
+                }).then(function successCallback(response) {
+                    $window.localStorage.setItem('token', response.data.token);
+                    $scope.closeModal();
+                    $state.go('posts');
+                }, function errorCallback(response) {
+                    var status = response.status;
+                    if(status == 400) {
+                        $scope.message.error = usersFactory.messages.error.unknown;
+                    } else if(status == 401) {
+                        $scope.message.error = usersFactory.messages.error.conflict;
                     }
-                })
+                });
             };
         }])
 
-    .controller('signupController', ['$scope', '$http', 'usersFactory', '$state',
-        function($scope, $http, usersFactory, $state) {
+    .controller('signupController', ['$scope', '$http', 'usersFactory', '$uibModal',
+        function($scope, $http, usersFactory, $uibModal) {
+            $scope.message = {};
+
             $scope.signup = function() {
                 $http({
                     url: usersFactory.api.register,
                     method: 'POST',
                     data: $scope.user
-                }).then(function(response) {
-                    console.log($scope.user);
-                    var status = response.data.status;
-                    if(status === 200) {
-                        $state.go('authentication.signin');
-                    } else if(status === 409) {
-                        $scope.error = 'Do podanego adresu e-mail jest już przypisane konto użytkownika w naszym serwisie!';
+                }).then(function successCallback() {
+                    $scope.closeModal();
+                    $uibModal.open({
+                        animation: false,
+                        templateUrl: 'app/modules/users/client/views/authentication/signin/signin.client.view.html',
+                        controller: 'authController',
+                        size: 'lg'
+                    });
+                }, function errorCallback(response) {
+                    var status = response.status;
+                    if(status == 400 || status == 500) {
+                        $scope.message.error = usersFactory.messages.error.unknown;
+                    } else if(status == 409) {
+                        $scope.message.error = usersFactory.messages.error.emailExists;
                     }
-                })
+                });
             };
         }]);

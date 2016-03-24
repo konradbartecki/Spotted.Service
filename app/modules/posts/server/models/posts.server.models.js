@@ -8,12 +8,11 @@ var mongoose    = require('mongoose'),
     ObjectId    = Schema.ObjectId;
 
 /**
- * User schema.
+ * Posts schema.
  */
 var postSchema = new Schema({
 
     id: ObjectId,
-    title: String,
     description: String,
     image: String,
     created: {

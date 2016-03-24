@@ -46,3 +46,9 @@
     @include size(0px + $i * 2);
   }
 }
+
+.font-color- {
+  &grey {
+    color: $grey;
+  }
+}

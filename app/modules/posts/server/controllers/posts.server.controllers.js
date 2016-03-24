@@ -6,57 +6,50 @@
 var express     = require('express'),
     app         = express();
 
-/**
- * Post schema.
- */
 var postSchema  = require('../models/posts.server.models');
 
 /**
- * Post create function.
+ * Get posts.
+ */
+exports.get = function(req, res) {
+    res.json({
+        test: 'dziala routing'
+    });
+};
+
+/**
+ * Create posts.
  */
 exports.create = function(req, res) {
 
     var date = new Date().getTime();
     date += (60 * 60 * 1000);
 
-    var post = new postSchema({
+    var image = null;
 
-        title: req.body.title,
+    if(req.file) {
+        image = '/uploads/images/posts/' + req.file.filename;
+    }
+
+    var post = new postSchema ({
+
         description: req.body.description,
-        image: req.body.image,
-        created: new Date(date),
+        image: image,
+        created: date,
         author: req.body.user
 
     });
 
     post.save(function(err) {
-        if (err)
-        // Error unknown.
-            res.json({
-                status: 500
-            });
-
-        // Complete created.
-        res.json({
-            status: 200
-        })
-    });
-
-};
-
-/**
- * Get list posts.
- */
-exports.list = function(req, res) {
-
-    postSchema.find().sort('-created').exec(function(err, posts) {
-        if(err) {
-            res.json({
-                status: 500
-            })
+        if (err) {
+            // Error unknown.
+            res.status(500);
+            res.json({ status: 500 });
         } else {
-            res.json(posts)
+            // Register complete.
+            res.status(200);
+            res.json({ status: 200 });
         }
-    })
+    });
 
 };

@@ -18,11 +18,12 @@ var userSchema = new Schema({
         unique: true
     },
     password: String,
-    sex: Number,
     created: {
         type: Date,
         default: Date.now()
-    }
+    },
+    sex: Number,
+    groups: []
 
 });
 

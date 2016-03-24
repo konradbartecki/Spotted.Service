@@ -28,10 +28,13 @@ gulp.task('js:vendor', function() {
     return gulp.src([
             config.bowerDir + '/jquery/dist/jquery.min.js',
             config.bowerDir + '/bootstrap/dist/js/bootstrap.min.js',
-            config.bowerDir + '/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js',
             config.bowerDir + '/angular/angular.min.js',
             config.bowerDir + '/angular-ui-router/release/angular-ui-router.js',
-            config.bowerDir + '/angular-jwt/dist/angular-jwt.js'
+            config.bowerDir + '/angular-jwt/dist/angular-jwt.js',
+            config.bowerDir + '/ng-file-upload/ng-file-upload.min.js',
+            config.bowerDir + '/angular-bootstrap/ui-bootstrap.min.js',
+            config.bowerDir + '/angular-bootstrap/ui-bootstrap-tpls.min.js',
+            config.bowerDir + '/angular-loading-bar/src/loading-bar.js'
         ])
         .pipe(concat('vendor.js'))
         .pipe(minifyJs({exclude: ['tasks']}))
@@ -45,6 +48,7 @@ gulp.task('js:app', function() {
     return gulp.src([
             config.appDir + '/modules/**/client/configs/*.js',
             config.appDir + '/modules/**/client/*.js',
+            config.appDir + '/modules/**/client/directives/*.js',
             config.appDir + '/modules/**/client/services/*.js',
             config.appDir + '/modules/**/client/routes/*.js',
             config.appDir + '/modules/**/client/controllers/*.js',
@@ -79,6 +83,7 @@ gulp.task('js', [
 gulp.task('css:vendor', function () {
     gulp.src([
             config.bowerDir + '/bootstrap/dist/css/bootstrap.min.css',
+            config.bowerDir + '/angular-loading-bar/src/loading-bar.css',
             config.bowerDir + '/font-awesome/css/font-awesome.min.css',
             config.assetsDir + '/css/*.css'
         ])

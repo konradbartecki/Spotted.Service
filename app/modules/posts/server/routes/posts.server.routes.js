@@ -1,11 +1,11 @@
 'use strict';
 
-module.exports = function(app) {
+module.exports = function(app, secure) {
 
-    var post = require('../controllers/posts.server.controllers.js');
+    var postsController = require('../controllers/posts.server.controllers');
 
     app.route('/api/v1/posts')
-        .get(post.list)
-        .post(post.create);
+        .post(secure, postsController.create)
+        .get(secure, postsController.get);
 
 };

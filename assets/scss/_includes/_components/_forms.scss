@@ -1,0 +1,44 @@
+form {
+  &.form-auth {
+    .form-group {
+      &.has-error {
+        .form-control {
+          background-color: lighten($red, 40%);
+        }
+      }
+      .form-control {
+        border-radius: 2px;
+        border: 0 none;
+        box-shadow: none;
+        background-color: $light;
+        &:focus {
+          background-color: lighten($blue, 30%);
+        }
+        &.input-md {
+          height: 40px;
+          padding-top: 9px;
+          padding-bottom: 9px;
+        }
+      }
+      .radio {
+        input[type="radio"] {
+          display: none;
+          &:checked + label {
+            &::before {
+              content: '\f192';
+            }
+          }
+        }
+        label {
+          padding: 0;
+          margin: 0 5px;
+          &::before {
+            font: normal normal normal 14px/1 FontAwesome;
+            content: '\f10c';
+            margin-right: 7px;
+          }
+        }
+      }
+    }
+  }
+}

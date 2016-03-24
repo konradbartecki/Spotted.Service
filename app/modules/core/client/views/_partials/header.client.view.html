@@ -1,30 +1,40 @@
-<nav class="navbar navbar-default navbar-fixed-top" data-ng-controller="headerController">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">
-                <img src="/assets/img/brand/logo.png" alt="">
-            </a>
-        </div>
-        <ul class="nav navbar-nav hidden-xs">
-            <li><a href="#">Ogłoszenia</a></li>
-            <li><a href="#">Aktualności</a></li>
-            <li><a href="#">Więcej o nas</a></li>
-        </ul>
-        <ul class="navbar-user">
-            <li data-ng-if="!user">
-                <a href="/signin" class="btn btn-sm btn-info btn-outline text-uppercase">
-                    <i class="fa fa-sign-in hidden-lg hidden-md hidden-sm"></i>
-                    <span class="hidden-xs">Zaloguj się</span>
-                </a>
-            </li>
-            <li class="dropdown user-menu" data-ng-if="user">
-                <a class="dropdown-toggle btn btn-sm btn-info btn-outline" data-toggle="dropdown" data-delay="1000" data-close-others="false">
-                    <i class="fa fa-ellipsis-h"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a role="button" data-ng-click="logout()">Wyloguj się</a></li>
-                </ul>
-            </li>
-        </ul>
+<div class="container">
+    <div class="navbar-header">
+        <a data-ng-if="isHome" class="navbar-brand" href="/">
+            <img src="/assets/img/brand/logo-spotted.png" alt="Spotted">
+        </a>
+        <a data-ng-if="!isHome" class="navbar-brand" href="/posts">
+            <img src="/assets/img/brand/icon.png" alt="Spotted">
+        </a>
     </div>
-</nav>
+    <ul class="nav navbar-nav navbar-user navbar-right" data-ng-show="!$root.user">
+        <li class="navbar-nav-auth">
+            <a role="button" data-ng-click="openModalAuth('signin')" class="navbar-nav-signin">
+                <i class="fa fa-lock"></i>
+                <span class="hidden-xs">
+                    Zaloguj się
+                </span>
+            </a>
+        </li>
+        <li class="navbar-nav-auth">
+            <a role="button" data-ng-click="openModalAuth('signup')" class="navbar-nav-signup">
+                <i class="fa fa-user-plus"></i>
+                <span class="hidden-xs">
+                    Załóż konto
+                </span>
+            </a>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-user navbar-right" data-ng-show="$root.user">
+        <li class="navbar-nav-user">
+            <a role="button" data-uib-tooltip="Powiadomienia" data-tooltip-placement="bottom" data-tooltip-popup-delay="300">
+                <i class="fa fa-globe"></i>
+            </a>
+        </li>
+        <li class="navbar-nav-user">
+            <a role="button" data-ng-click="signout()" data-uib-tooltip="Wyloguj" data-tooltip-placement="bottom" data-tooltip-popup-delay="300">
+                <i class="fa fa-power-off"></i>
+            </a>
+        </li>
+    </ul>
+</div>

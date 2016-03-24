@@ -10,14 +10,14 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "bootstrap": "^3.3.6",
     "jquery": "^2.2.1",
-    "angular-ui-router": "^0.2.18",
+    "bootstrap": "^3.3.6",
     "font-awesome": "^4.5.0",
-    "angular-bootstrap": "^1.2.4",
     "angular": "^1.5.0",
-    "ngstorage": "^0.3.10",
+    "angular-ui-router": "^0.2.18",
     "angular-jwt": "^0.0.9",
-    "bootstrap-hover-dropdown": "^2.2.1"
+    "ng-file-upload": "^12.0.4",
+    "angular-bootstrap": "^1.2.5",
+    "angular-loading-bar": "^0.9.0"
   }
 }

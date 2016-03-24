@@ -1,0 +1,14 @@
+.alert {
+  padding: 0;
+  margin-bottom: 10px;
+  border: 0 none;
+  border-radius: 0;
+  background-color: transparent;
+  font-size: 12px;
+  &.alert-danger {
+    color: $red;
+  }
+  &.alert-success {
+    color: $green;
+  }
+}

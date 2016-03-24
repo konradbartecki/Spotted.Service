@@ -7,6 +7,9 @@ var path            = require('path'),
     bodyParser      = require('body-parser'),
     methodOverride  = require('method-override'),
     swig            = require('swig'),
+    multer          = require('multer'),
+    crypto          = require('crypto'),
+    jwt             = require('jsonwebtoken'),
     express         = require('express'),
     app             = express();
 
@@ -51,6 +54,23 @@ exports.initMiddleware = function () {
     }));
     app.use(bodyParser.json());
     app.use(methodOverride());
+
+
+    var storage = multer.diskStorage({
+        destination: './public/uploads/images/posts/',
+        filename: function (req, file, cb) {
+            crypto.pseudoRandomBytes(16, function (err, raw) {
+                if (err) {
+                    res.send(err);
+                    return;
+                }
+                cb(null, raw.toString('hex') + path.extname(file.originalname))
+            })
+        }
+    });
+    var upload = multer({ storage: storage }).single('image');
+
+    app.use(upload);
 };
 
 /**
@@ -67,13 +87,39 @@ exports.initViewEngine = function() {
 };
 
 /**
+ * Secure function for routes.
+ */
+var secure = function(req, res, next) {
+
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+    if(token) {
+        jwt.verify(token, 'ja6ar66eq3fr75raCrareChuwAfaHaja', function(err, decoded) {
+            if(err) {
+                // Unauthorized
+                res.status(401);
+                res.json({ status: 401 });
+            } else {
+                req.decoded = decoded;
+                next();
+            }
+        })
+    } else {
+        // Unauthorized
+        res.status(401);
+        res.json({ status: 401 });
+    }
+
+};
+
+/**
  * Initialize server routes.
  */
 exports.getRoutes = function() {
     var routes = env.getGlobbedPaths(env.app.server.assets.routes);
 
     routes.forEach(function(routePath) {
-        require(path.resolve(routePath))(app);
+        require(path.resolve(routePath))(app, secure);
     });
 };
 

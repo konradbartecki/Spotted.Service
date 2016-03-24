@@ -1,40 +1,54 @@
-<form role="form" class="form-auth" data-ng-submit="signup()" data-ng-controller="signupController" novalidate>
-    <h2 class="font-weight-300 margin-top-0 margin-bottom-40">
-        Dołącz do spotted :)
-    </h2>
-    <div class="alert alert-danger" role="alert" data-ng-if="error">
-        {{error}}
+<div class="modal-auth">
+    <div class="modal-body">
+        <a role="button" data-ng-click="closeModal()" class="font-weight-600 font-size-12">
+            <i class="fa fa-angle-left margin-right-5"></i>zamknij okno
+        </a>
+        <h3 class="font-size-32 font-weight-300 margin-top-10">
+            Dołącz do spotted :)
+        </h3>
+        <h5 class="font-color-grey">
+            Masz już swoje konto?
+            <a role="button" data-ng-click="switchModal('signin')">
+                Przejdź do logowania!
+            </a>
+        </h5>
+        <form role="form" name="signupForm" class="form-auth margin-top-30 margin-bottom-30" data-ng-controller="signupController" data-ng-submit="signup()" novalidate>
+            <div class="alert" data-ng-if="message" ng-class="{ 'alert-danger' : message.error, 'alert-success' : message.success }">
+                <span data-ng-if="message.error">
+                    {{ message.error }}
+                </span>
+                <span data-ng-if="message.success">
+                    {{ message.success }}
+                </span>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group" data-ng-class="{ 'has-error' : signupForm.email.$invalid && !signupForm.email.$pristine }">
+                        <input type="email" name="email" data-ng-model="user.email" class="form-control input-md" placeholder="Adres e-mail" required>
+                    </div>
+                    <div class="form-group" data-ng-class="{ 'has-error' : signupForm.password.$invalid && !signupForm.password.$pristine }">
+                        <input type="password" name="password" data-ng-model="user.password" data-ng-minlength="6" class="form-control input-md" placeholder="Hasło" required>
+                    </div>
+                    <div class="form-group">
+                        <div class="radio margin-top-10 margin-bottom-10">
+                            <input type="radio" name="sex" id="male" value="0" data-ng-model="user.sex" data-ng-required="!user.sex">
+                            <label for="male">Mężczyzna</label>
+                            <input type="radio" name="sex" id="female" value="1" data-ng-model="user.sex" data-ng-required="!user.sex">
+                            <label for="female">Kobieta</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-md btn-success" data-ng-disabled="signupForm.$invalid">
+                        Zarejestruj się na spotted!
+                    </button>
+                </div>
+            </div>
+        </form>
+        <hr>
+        <p class="margin-bottom-0">
+            <small>
+                Klikając przycisk Rejestracja, akceptujesz nasz <a href="#">Regulamin</a> oraz potwierdzasz zapoznanie się z
+                <a href="#">Zasadami dotyczącymi danych</a>, w tym z <a href="#">Zasadami stosowania plików cookie</a>.
+            </small>
+        </p>
     </div>
-    <div class="form-group">
-        <input type="email" data-ng-model="user.email" class="form-control input-md" id="email" placeholder="Adres e-mail" autocomplete="off" required>
-    </div>
-    <div class="form-group">
-        <input type="password" data-ng-model="user.password" class="form-control input-md" id="password" placeholder="Hasło" required>
-    </div>
-    <div class="form-group">
-        <input type="password" class="form-control input-md" id="checkPassword" placeholder="Powtórz hasło" required>
-    </div>
-    <div class="form-group">
-        <div class="radio padding-top-10 margin-left-5">
-            <input type="radio" name="sex" id="male" value="0" data-ng-model="user.sex">
-            <label for="male">Mężczyzna</label>
-            <input type="radio" name="sex" id="female" value="1" data-ng-model="user.sex">
-            <label for="female">Kobieta</label>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-sm btn-success text-uppercase margin-top-10">
-        Zarejestruj się na Spotted!
-    </button>
-    <p class="margin-top-30">
-        <small>
-            Masz już swoje konto? <a href="/signin"><strong>Przejdź do logowania</strong></a>.
-        </small>
-    </p>
-    <hr/>
-    <p class="margin-top-20 text-justify">
-        <small>
-            Klikając przycisk Rejestracja, akceptujesz nasz <a href="#">Regulamin</a> oraz potwierdzasz zapoznanie się z
-            <a href="#">Zasadami dotyczącymi danych</a>, w tym z <a href="#">Zasadami stosowania plików cookie</a>.
-        </small>
-    </p>
-</form>
+</div>

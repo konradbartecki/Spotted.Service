@@ -1,0 +1,47 @@
+body.modal-open {
+  overflow: hidden!important;
+  -ms-overflow-style: none !important;
+}
+
+.modal-backdrop.in {
+  opacity: 0.95;
+}
+
+.modal {
+  .modal-dialog {
+    margin-top: 100px;
+    &.modal-md {
+      max-width: 510px;
+    }
+    .modal-content {
+      background-color: transparent;
+      .modal-auth {
+        border-radius: 6px;
+        background: url('../img/bg-auth.jpg') no-repeat top right;
+        .modal-body {
+          width: 50%;
+          padding: 50px;
+          background-color: $white;
+          border-radius: 6px 0 0 6px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and(max-width: 991px) {
+  .modal {
+    .modal-dialog {
+      .modal-content {
+        .modal-auth {
+          .modal-body {
+            width: 100%;
+            border-radius: 6px;
+            padding-left: 30px;
+            padding-right: 30px;
+          }
+        }
+      }
+    }
+  }
+}

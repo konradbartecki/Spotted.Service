@@ -2,7 +2,6 @@
 <html lang="pl">
 <head>
     <base href="/">
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,15 +9,13 @@
     <title>{{title}} - {{description}}</title>
     <meta name="description" content="{{description}}">
 
-    {% include "./_includes/favicons.server.view.html" %}
-
     <link rel="stylesheet" type="text/css" href="{{styles.vendor}}">
     <link rel="stylesheet" type="text/css" href="{{styles.app}}">
 
 </head>
-<body class="site">
-
-    <header class="site-header" data-ng-include="'app/modules/core/client/views/_partials/header.client.view.html'"></header>
+<body class="site" data-ng-controller="coreController" data-ng-class="{ 'site-app' : !isHome }">
+    <div id="loading-bar-container"></div>
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" data-ng-controller="headerController" data-ng-class="{ 'navbar-app' : !isHome }" data-ng-include="'app/modules/core/client/views/_partials/header.client.view.html'"></nav>
 
     <section class="site-content">
         {% block content %}{% endblock %}

@@ -10,40 +10,40 @@ angular.module(ApplicationConfiguration.applicationModuleName)
 
     })
 
-    .run(function($state, $rootScope, $window) {
+    .run(function($state, $rootScope, $window, jwtHelper, $uibModal) {
 
         $rootScope.$on('$stateChangeStart', function(e, to) {
             if(to.access && to.access.guest) {
                 if($window.localStorage.getItem('token')) {
                     e.preventDefault();
-                    $state.go('home');
+                    $state.go('posts');
                 }
             } else if (to.access && to.access.user) {
                 if(!$window.localStorage.getItem('token')) {
                     e.preventDefault();
-                    $state.go('login');
+                    $state.go('home');
+                    $uibModal.open({
+                        animation: false,
+                        templateUrl: 'app/modules/users/client/views/authentication/signin/signin.client.view.html',
+                        controller: 'authController',
+                        size: 'lg'
+                    });
                 }
             }
         });
 
-    })
+        $rootScope.user = false;
 
-    .factory('userService', function(jwtHelper) {
+        $rootScope.$on('$stateChangeStart', function() {
 
-        var token = localStorage.getItem('token');
+            var token = $window.localStorage.getItem('token');
 
-        if(token) {
-            var decodedToken = token && jwtHelper.decodeToken(token);
+            if(token) {
+                var decodedToken = token && jwtHelper.decodeToken(token);
 
-            return {
-                user: decodedToken.user
-            }
-        } else {
-
-            return {
-                user: ''
+                $rootScope.user = decodedToken.user;
             }
 
-        }
+        });
 
     });

@@ -2,12 +2,12 @@
 
 module.exports = function(app) {
 
-    var user = require('../controllers/users.server.controllers');
+    var usersController = require('../controllers/users.server.controllers');
 
     app.route('/api/v1/auth/signup')
-        .post(user.signup);
+        .post(usersController.signup);
 
     app.route('/api/v1/auth/signin')
-        .post(user.signin);
+        .post(usersController.signin);
 
 };

@@ -14,6 +14,9 @@ module.exports = {
                 },
                 db: {
                     uri: 'mongodb://127.0.0.1:27017/spotted'
+                },
+                api: {
+                    url: '/api/v1'
                 }
             },
             assets: {

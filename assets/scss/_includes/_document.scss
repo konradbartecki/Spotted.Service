@@ -1,0 +1,26 @@
+@-ms-viewport { width: 100%; }
+
+html, body {
+  width: 100%;
+}
+
+body {
+  background-color: $light;
+  color: $dark;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  &.site-app {
+    padding-top: 60px;
+  }
+}
+
+a {
+  color: $blue;
+  transition: color 0.2s ease;
+  &:focus,
+  &:hover {
+    color: $dark;
+    outline: none;
+    text-decoration: underline;
+  }
+}
