@@ -2,3 +2,4 @@
 /node_modules
 /bower_components
 /public/uploads
+/app/config/env
