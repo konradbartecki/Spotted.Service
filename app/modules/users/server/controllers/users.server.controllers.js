@@ -36,17 +36,17 @@ exports.signup = function(req, res) {
                 if (err) {
                     // Error unknown.
                     res.status(500);
-                    res.json({ status: 500 });
+                    res.json({ status: 500, error: err });
                 } else {
                     // Register complete.
-                    res.status(200);
-                    res.json({ status: 200 });
+                    res.status(201);
+                    res.json({ status: 201 });
                 }
             });
         } else {
             // Email exists.
-            res.status(409);
-            res.json({ status: 409 });
+            res.status(500);
+            res.json({ status: 1402 });
         }
     });
 
@@ -62,8 +62,8 @@ exports.signin = function(req, res) {
     }, function(err, user) {
         if(!user) {
             // Incorrect email.
-            res.status(401);
-            res.json({ status: 401 });
+            res.status(500);
+            res.json({ status: 1401 });
         } else {
             if(bcrypt.compareSync(req.body.password, user.password)) {
                 // Token exists 24 hour.
@@ -80,16 +80,14 @@ exports.signin = function(req, res) {
                 });
 
                 // Login complete.
-                res.status(200);
                 res.json({
-                    status: 200,
                     token: token
                 });
 
             } else {
                 // Incorrect password
-                res.status(401);
-                res.json({ status: 401 });
+                res.status(500);
+                res.json({ status: 1401 });
             }
 
         }

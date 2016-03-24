@@ -44,11 +44,11 @@ exports.create = function(req, res) {
         if (err) {
             // Error unknown.
             res.status(500);
-            res.json({ status: 500 });
+            res.json({ status: 1500 });
         } else {
-            // Register complete.
-            res.status(200);
-            res.json({ status: 200 });
+            // Created
+            res.status(201);
+            res.json({ status: 201 });
         }
     });
 

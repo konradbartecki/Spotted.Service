@@ -13,7 +13,7 @@ module.exports = {
                     port: '3000'
                 },
                 db: {
-                    uri: 'mongodb://127.0.0.1:27017/spotted'
+                    uri: 'mongodb://admin:4pz7wmKp8BaBnkQL7ofr@ds062818.mlab.com:62818/spotted'
                 },
                 api: {
                     url: '/api/v1'
