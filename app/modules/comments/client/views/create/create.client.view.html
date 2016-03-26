@@ -1,0 +1,5 @@
+<form class="add-comment" role="form">
+    <div class="form-group">
+        <textarea data-ng-keyup="$event.keyCode == 13 && createComment(post._id)" name="message" id="message" rows="1" data-ng-model="comment.message" class="form-control" placeholder="Dodaj komentarz..."></textarea>
+    </div>
+</form>

@@ -7,12 +7,24 @@ var ApplicationConfiguration = (function () {
         'angular-jwt',
         'ngFileUpload',
         'ui.bootstrap',
-        'angular-loading-bar'
+        'angular-bootstrap-select',
+        'angularMoment'
     ];
 
     var registerModule = function (moduleName, dependencies) {
         angular.module(moduleName, dependencies || []);
         angular.module(applicationModuleName).requires.push(moduleName);
+
+        angular.module(moduleName).config(['$httpProvider', function($httpProvider) {
+            if (!$httpProvider.defaults.headers.get) {
+                $httpProvider.defaults.headers.get = {};
+            }
+            //disable IE ajax request caching
+            $httpProvider.defaults.headers.get['If-Modified-Since'] = 'Mon, 26 Jul 1997 05:00:00 GMT';
+            $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
+            $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
+        }]);
+
     };
 
     return {
@@ -30,9 +42,15 @@ angular.module(ApplicationConfiguration.applicationModuleName)
             $locationProvider.html5Mode(true).hashPrefix('!');
         }
     ])
-    .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
-        cfpLoadingBarProvider.includeSpinner = false;
-    }]);
+
+    .run(function(amMoment) {
+        amMoment.changeLocale('pl');
+    })
+
+    .constant('angularMomentConfig', {
+        timezone: 'Europe/Warsaw'
+    });
+
 
 angular.element(document).ready(function () {
     //Fixing facebook bug with redirect

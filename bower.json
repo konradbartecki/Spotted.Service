@@ -18,6 +18,9 @@
     "angular-jwt": "^0.0.9",
     "ng-file-upload": "^12.0.4",
     "angular-bootstrap": "^1.2.5",
-    "angular-loading-bar": "^0.9.0"
+    "angular-bootstrap-select": "^0.0.5",
+    "bootstrap-select": "^1.10.0",
+    "moment": "^2.12.0",
+    "angular-moment": "^0.10.3"
   }
 }

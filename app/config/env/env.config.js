@@ -9,11 +9,11 @@ module.exports = {
         server: {
             config: {
                 host: {
-                    ip: '46.101.158.111',
+                    ip: '',
                     port: '3000'
                 },
                 db: {
-                    uri: 'mongodb://admin:4pz7wmKp8BaBnkQL7ofr@ds062818.mlab.com:62818/spotted'
+                    uri: 'mongodb://127.0.0.1:27017/spotted'
                 },
                 api: {
                     url: '/api/v1'

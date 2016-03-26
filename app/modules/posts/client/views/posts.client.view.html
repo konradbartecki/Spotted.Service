@@ -1,9 +1,16 @@
-<section class="posts">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-1">
-                <section class="posts-create" data-ng-include="'app/modules/posts/client/views/create/create.client.view.html'"></section>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <section class="posts" data-ng-controller="postsController">
+                <section class="posts-create"
+                         data-ng-include="'app/modules/posts/client/views/create/create.client.view.html'"
+                         data-ng-controller="postsCreateController">
+                </section>
+                <section class="posts-list"
+                         data-ng-include="'app/modules/posts/client/views/list/list.client.view.html'"
+                         data-ng-controller="postsListController">
+                </section>
+            </section>
         </div>
     </div>
-</section>
+</div>

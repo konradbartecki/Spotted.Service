@@ -6,14 +6,20 @@
 var express     = require('express'),
     app         = express();
 
-var postSchema  = require('../models/posts.server.models');
+var postSchema  = require('../models/posts.server.models'),
+    groupSchema = require('../../../groups/server/models/groups.server.models.js'),
+    userSchema  = require('../../../users/server/models/users.server.models.js');
 
 /**
  * Get posts.
  */
 exports.get = function(req, res) {
-    res.json({
-        test: 'dziala routing'
+    postSchema.find(function(err, posts) {
+        if(err) {
+            res.send(err);
+        } else {
+            res.json(posts);
+        }
     });
 };
 
@@ -36,6 +42,7 @@ exports.create = function(req, res) {
         description: req.body.description,
         image: image,
         created: date,
+        group: req.body.group,
         author: req.body.user
 
     });
@@ -49,6 +56,61 @@ exports.create = function(req, res) {
             // Created
             res.status(201);
             res.json({ status: 201 });
+        }
+    });
+
+};
+
+/**
+ * Get post.
+ */
+exports.getPost = function(req, res) {
+    postSchema.findOne({ _id : req.params.id }, function(err, post) {
+        if(err) {
+            res.send(err);
+        } else {
+            res.json(post);
+        }
+    });
+};
+
+/**
+ * Get post category.
+ */
+exports.getPostGroup = function(req, res) {
+
+    postSchema.findOne({ _id : req.params.id }, function(err, post) {
+        if(err) {
+            res.send(err);
+        } else {
+            groupSchema.findOne({ _id : post.group }, function(err, group) {
+                if(err) {
+                    res.send(err);
+                } else {
+                    res.json(group);
+                }
+            });
+        }
+    });
+
+};
+
+/**
+ * Get post author.
+ */
+exports.getPostAuthor = function(req, res) {
+
+    postSchema.findOne({ _id : req.params.id }, function(err, post) {
+        if(err) {
+            res.send(err);
+        } else {
+            userSchema.findOne({ _id : post.author }, function(err, user) {
+                if(err) {
+                    res.send(err);
+                } else {
+                    res.json(user);
+                }
+            });
         }
     });
 

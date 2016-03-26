@@ -28,13 +28,16 @@ gulp.task('js:vendor', function() {
     return gulp.src([
             config.bowerDir + '/jquery/dist/jquery.min.js',
             config.bowerDir + '/bootstrap/dist/js/bootstrap.min.js',
+            config.bowerDir + '/bootstrap-select/bootstrap-select.min.js',
+            config.bowerDir + '/moment/min/moment-with-locales.min.js',
             config.bowerDir + '/angular/angular.min.js',
             config.bowerDir + '/angular-ui-router/release/angular-ui-router.js',
             config.bowerDir + '/angular-jwt/dist/angular-jwt.js',
             config.bowerDir + '/ng-file-upload/ng-file-upload.min.js',
             config.bowerDir + '/angular-bootstrap/ui-bootstrap.min.js',
             config.bowerDir + '/angular-bootstrap/ui-bootstrap-tpls.min.js',
-            config.bowerDir + '/angular-loading-bar/src/loading-bar.js'
+            config.bowerDir + '/angular-bootstrap-select/build/angular-bootstrap-select.min.js',
+            config.bowerDir + '/angular-moment/angular-moment.min.js'
         ])
         .pipe(concat('vendor.js'))
         .pipe(minifyJs({exclude: ['tasks']}))
@@ -83,7 +86,7 @@ gulp.task('js', [
 gulp.task('css:vendor', function () {
     gulp.src([
             config.bowerDir + '/bootstrap/dist/css/bootstrap.min.css',
-            config.bowerDir + '/angular-loading-bar/src/loading-bar.css',
+            config.bowerDir + '/bootstrap-select/bootstrap-select.min.css',
             config.bowerDir + '/font-awesome/css/font-awesome.min.css',
             config.assetsDir + '/css/*.css'
         ])
@@ -110,7 +113,7 @@ gulp.task('css:app', function () {
  */
 gulp.task('css:app:watch', function() {
     gulp.watch(
-        config.assetsDir + '/scss/**/*.scss', ['css']
+        config.assetsDir + '/scss/**/*.scss', ['css:app']
     );
 });
 

@@ -10,18 +10,17 @@ var mongoose    = require('mongoose'),
 /**
  * Posts schema.
  */
-var postSchema = new Schema({
+var commentSchema = new Schema({
 
     id: ObjectId,
-    description: String,
-    image: String,
+    message: String,
     created: {
         type: Date,
         default: Date.now()
     },
-    group: {
+    post: {
         type: ObjectId,
-        ref: 'Group'
+        ref: 'Post'
     },
     author: {
         type: ObjectId,
@@ -33,4 +32,4 @@ var postSchema = new Schema({
 /**
  * Exports model.
  */
-module.exports = mongoose.model('Post', postSchema);
+module.exports = mongoose.model('Comment', commentSchema);

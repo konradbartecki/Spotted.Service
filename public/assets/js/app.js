@@ -7,12 +7,24 @@ var ApplicationConfiguration = (function () {
         'angular-jwt',
         'ngFileUpload',
         'ui.bootstrap',
-        'angular-loading-bar'
+        'angular-bootstrap-select',
+        'angularMoment'
     ];
 
     var registerModule = function (moduleName, dependencies) {
         angular.module(moduleName, dependencies || []);
         angular.module(applicationModuleName).requires.push(moduleName);
+
+        angular.module(moduleName).config(['$httpProvider', function($httpProvider) {
+            if (!$httpProvider.defaults.headers.get) {
+                $httpProvider.defaults.headers.get = {};
+            }
+            //disable IE ajax request caching
+            $httpProvider.defaults.headers.get['If-Modified-Since'] = 'Mon, 26 Jul 1997 05:00:00 GMT';
+            $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
+            $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
+        }]);
+
     };
 
     return {
@@ -30,9 +42,15 @@ angular.module(ApplicationConfiguration.applicationModuleName)
             $locationProvider.html5Mode(true).hashPrefix('!');
         }
     ])
-    .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
-        cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner">Loading...</div>';
-    }]);
+
+    .run(function(amMoment) {
+        amMoment.changeLocale('pl');
+    })
+
+    .constant('angularMomentConfig', {
+        timezone: 'Europe/Warsaw'
+    });
+
 
 angular.element(document).ready(function () {
     //Fixing facebook bug with redirect
@@ -94,18 +112,33 @@ angular.module(ApplicationConfiguration.applicationModuleName)
 
     });
 
+ApplicationConfiguration.registerModule('comments');
+
 ApplicationConfiguration.registerModule('core');
 
 ApplicationConfiguration.registerModule('posts');
 
 ApplicationConfiguration.registerModule('users');
 
+angular.module('comments')
+    .factory('commentsFactory', function() {
+
+        return {
+            api: {
+                comments: 'api/v1/comments'
+            }
+        }
+
+    });
+
 angular.module('posts')
     .factory('postsFactory', function() {
 
         return {
             api: {
-                posts: 'api/v1/posts'
+                posts: 'api/v1/posts',
+                postGroup: 'api/v1/posts/groups',
+                groups: 'api/v1/groups'
             }
         }
 
@@ -161,6 +194,41 @@ angular.module('posts')
 
     }]);
 
+angular.module('comments')
+    .controller('commentsController', ['$scope', '$rootScope', 'commentsFactory', function($scope, $rootScope, commentsFactory) {
+
+        $scope.user = $rootScope.user.id;
+        $scope.api = commentsFactory.api;
+
+        console.log($scope.user);
+
+    }])
+
+    .controller('commentsCreateController', ['$scope', '$http', function($scope, $http) {
+
+        $scope.comment = {};
+
+        $scope.createComment = function(id) {
+
+            $http({
+                url: $scope.api.comments,
+                method: 'POST',
+                data: {
+                    message: $scope.comment.message,
+                    user: $scope.user,
+                    post: id
+                },
+                headers: {
+                    'x-access-token': $scope.token
+                }
+            }).then(function successCallback() {
+                $scope.comment = {};
+            });
+
+        };
+
+    }]);
+
 angular.module('core')
 
     .controller('coreController', ['$scope', '$state', function($scope, $state) {
@@ -193,59 +261,6 @@ angular.module('core')
                     templateUrl: 'app/modules/users/client/views/authentication/' + tpl + '/' + tpl + '.client.view.html',
                     controller: 'authController',
                     size: 'lg'
-                });
-            };
-
-        }]);
-
-angular.module('posts')
-    .controller('createPostController', ['$scope', '$http', '$window', '$rootScope', 'postsFactory', 'Upload',
-        function($scope, $http, $window, $rootScope, postsFactory, Upload) {
-
-            $scope.post = {
-                user: $rootScope.user.id,
-                image: null
-            };
-
-            $scope.removeImage = function() {
-                $scope.post.image = null;
-            };
-
-            $scope.create = function() {
-                if($scope.post.image == null) {
-                    $http({
-                        url: postsFactory.api.posts,
-                        method: 'POST',
-                        data: $scope.post,
-                        headers: {
-                            'x-access-token': $window.localStorage.getItem('token')
-                        }
-                    }).then(function successCallback(response) {
-                        $scope.post = {};
-                        console.log(response);
-                    }, function errorCallback(response) {
-                        console.log(response);
-                    });
-                } else {
-                    $scope.upload($scope.post);
-                }
-            };
-
-            $scope.upload = function(post) {
-                Upload.upload({
-                    url: 'api/v1/posts',
-                    data: {
-                        description: post.description,
-                        image: post.image,
-                        user: post.user
-                    },
-                    headers: {
-                        'x-access-token': $window.localStorage.getItem('token')
-                    }
-                }).then(function successCallback(response) {
-                    console.log(response);
-                }, function errorCallback(response) {
-                    console.log(response);
                 });
             };
 
@@ -321,4 +336,118 @@ angular.module('users')
                     }
                 });
             };
+        }]);
+
+angular.module('posts')
+
+    .controller('postsController', ['$scope', '$http', '$rootScope', '$window', 'postsFactory',
+        function($scope, $http, $rootScope, $window, postsFactory) {
+
+            $scope.user = $rootScope.user;
+            $scope.token = $window.localStorage.getItem('token');
+            $scope.api = postsFactory.api;
+
+        }])
+
+    .controller('postsCreateController', ['$scope', '$http', 'Upload', '$state',
+        function($scope, $http, Upload, $state) {
+
+            $scope.post = {
+                user: $scope.user.id,
+                image: null
+            };
+
+            $scope.getGroups = function() {
+                $http({
+                    url: $scope.api.groups,
+                    method: 'GET',
+                    headers: {
+                        'x-access-token': $scope.token
+                    }
+                }).then(function successCallback(response) {
+                    $scope.groups = response.data;
+                });
+            };
+
+            $scope.createPost = function() {
+                if($scope.post.image == null) {
+                    $http({
+                        url: $scope.api.posts,
+                        method: 'POST',
+                        data: $scope.post,
+                        headers: {
+                            'x-access-token': $scope.token
+                        }
+                    }).then(function successCallback() {
+                        $state.reload();
+                    });
+                } else {
+                    $scope.createPostUpload($scope.post);
+                }
+            };
+
+            $scope.createPostUpload = function(post) {
+                Upload.upload({
+                    url: $scope.api.posts,
+                    data: {
+                        description: post.description,
+                        image: post.image,
+                        group: post.group,
+                        user: post.user
+                    },
+                    headers: {
+                        'x-access-token': $scope.token
+                    }
+                }).then(function successCallback() {
+                    $state.reload();
+                });
+            };
+
+        }])
+
+    .controller('postsListController', ['$scope', '$http',
+        function($scope, $http) {
+
+            $scope.commentsIsCollapsed = true;
+
+            $scope.getPosts = function() {
+                $http({
+                    url: $scope.api.posts,
+                    method: 'GET',
+                    headers: {
+                        'x-access-token': $scope.token
+                    }
+                }).then(function successCallback(response){
+                    $scope.posts = response.data;
+
+                    response.data.forEach(function(data, key) {
+                        $scope.posts[key].number = key;
+                    });
+                });
+            };
+
+            $scope.getPostAuthor = function(id, number) {
+                $http({
+                    url: $scope.api.posts + '/' + id + '/author',
+                    method: 'GET',
+                    headers: {
+                        'x-access-token': $scope.token
+                    }
+                }).then(function successCallback(response) {
+                    $scope.posts[number].authorDetails = response.data;
+                });
+            };
+
+            $scope.getPostGroup = function(id, number) {
+                $http({
+                    url: $scope.api.posts + '/' + id + '/group',
+                    method: 'GET',
+                    headers: {
+                        'x-access-token': $scope.token
+                    }
+                }).then(function successCallback(response) {
+                    $scope.posts[number].groupDetails = response.data;
+                });
+            };
+
         }]);

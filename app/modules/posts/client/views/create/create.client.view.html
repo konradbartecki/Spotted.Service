@@ -1,35 +1,27 @@
-<form role="form" name="postForm" data-ng-controller="createPostController" novalidate>
-    <div class="row">
-        <div class="col-md-1">
-            <img class="author-picture" src="/assets/img/user.jpg" alt="">
+<div class="posts-create-form">
+    <form role="form" name="postCreateForm" data-ng-submit="createPost()" novalidate>
+        <div class="form-group">
+                    <textarea name="description" id="description" class="form-control pc-description" rows="1" placeholder="Coś się wydarzyło lub się wydarzy? Napisz o tym!"
+                              data-ng-model="post.description" required></textarea>
         </div>
-        <div class="col-md-8">
-            <div class="form-group">
-                <textarea name="description" id="description" data-ng-model="post.description" class="form-control" rows="1" placeholder="Coś się wydarzyło lub się wydarzy? Napisz o tym!" required></textarea>
-                <ul class="list-group">
-                    <li>
-                        <a role="button" data-ngf-select data-ng-model="post.image" data-name="image" data-ngf-pattern="'image/*'"
-                           data-ngf-accept="'image/*'" data-uib-tooltip="Dodaj zdjęcie" data-tooltip-placement="bottom" data-tooltip-popup-delay="300">
-                            <i class="fa fa-photo"></i>
-                        </a>
-                    </li>
-                    <li class="delete" ng-class="{ 'hidden' : !post.image }">
-                        <a href="#" data-ng-click="removeImage()" data-uib-tooltip="Usuń zdjęcie" data-tooltip-placement="bottom" data-tooltip-popup-delay="300">
-                            <i class="fa fa-close"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-uib-tooltip="Dodaj lokalizacje" data-tooltip-placement="bottom" data-tooltip-popup-delay="300">
-                            <i class="fa fa-map-marker"></i>
-                        </a>
-                    </li>
-                    <li class="pull-right">
-                        <a role="button" data-ng-click="create()" data-ng-disabled="postForm.$invalid" data-ng-class="{ 'disabled' : postForm.$invalid }">
-                            Wyślij <i class="fa fa-send"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+        <div class="form-footer">
+            <ul class="list-extras">
+                <li>
+                    <button class="btn" data-ngf-select data-ng-model="post.image" data-name="image" data-ngf-pattern="'image/*'"
+                            data-ngf-accept="'image/*'">
+                        <i class="fa fa-photo"></i>
+                    </button>
+                </li>
+                <li data-ng-init="getGroups()">
+                    <select class="dropdown" selectpicker="" data-ng-model="post.group" data-toggle-dropdown data-live-search="true" required>
+                        <option class="default" value=""></option>
+                        <option data-ng-repeat="group in groups" value="{{ group._id }}">{{ group.name }}</option>
+                    </select>
+                </li>
+            </ul>
+            <button type="submit" class="btn btn-success btn-submit" data-ng-disabled="postCreateForm.$invalid">
+                Wyślij <i class="fa fa-send-o"></i>
+            </button>
         </div>
-    </div>
-</form>
+    </form>
+</div>

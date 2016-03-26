@@ -4,7 +4,7 @@ body.modal-open {
 }
 
 .modal-backdrop.in {
-  opacity: 0.95;
+  opacity: 0.7;
 }
 
 .modal {
@@ -24,6 +24,9 @@ body.modal-open {
           background-color: $white;
           border-radius: 6px 0 0 6px;
         }
+      }
+      .modal-edit-post {
+        background-color: $white;
       }
     }
   }

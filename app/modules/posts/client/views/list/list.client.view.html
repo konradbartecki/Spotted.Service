@@ -1,0 +1,43 @@
+<div data-ng-init="getPosts()">
+    <div class="post-item" data-ng-repeat="post in posts | orderBy:'-created'">
+        <div class="post-item-author">
+            <img src="/assets/img/user.jpg" alt="">
+        </div>
+        <div class="post-item-content">
+            <div class="post-item-heading">
+                <h4 class="post-item-title" data-ng-init="getPostAuthor(post._id, post.number)">
+                    <span data-ng-if="post.authorDetails.sex == 0">
+                        <span class="gender">Spotter</span> dodał
+                    </span>
+                    <span data-ng-if="post.authorDetails.sex == 1">
+                        <span class="gender">Spotterka</span> dodała
+                    </span>
+                    ogłoszenie
+                </h4>
+            </div>
+            <p class="post-item-data" data-ng-init="getPostGroup(post._id, post.number)">
+                <a href="#" class="post-item-group"  data-uib-tooltip="Pokaż posty z tej grupy" data-tooltip-placement="top" data-tooltip-popup-delay="300">
+                    <strong class="font-weight-600">{{post.groupDetails.name}}</strong></a>,
+                <span class="post-item-created" am-time-ago="post.created"></span>
+            </p>
+            <p class="post-item-description">
+                {{ post.description }}
+            </p>
+            <img data-ng-if="post.image != null" class="post-item-image" src="{{ post.image }}" alt="">
+            <ul class="post-item-footer">
+                <li data-uib-tooltip="Pokaż/ukryj komentarze" data-tooltip-placement="top" data-tooltip-popup-delay="300">
+                    <a role="button" ng-click="commentsIsCollapsed = !commentsIsCollapsed">
+                        <i class="fa fa-comments-o"></i>
+                        <span class="count">0</span>
+                    </a>
+                </li>
+                <li data-uib-tooltip="Udostępnij ten post" data-tooltip-placement="top" data-tooltip-popup-delay="300">
+                    <a href="#" class="share">
+                        <i class="fa fa-retweet"></i>
+                    </a>
+                </li>
+            </ul>
+            <section data-ng-include="'app/modules/comments/client/views/comments.client.view.html'"></section>
+        </div>
+    </div>
+</div>

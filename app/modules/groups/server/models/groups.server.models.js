@@ -10,22 +10,18 @@ var mongoose    = require('mongoose'),
 /**
  * Posts schema.
  */
-var postSchema = new Schema({
+var groupSchema = new Schema({
 
     id: ObjectId,
-    description: String,
-    image: String,
+    name: String,
+    province: String,
+    location: {
+        latitude: Number,
+        longitude: Number
+    },
     created: {
         type: Date,
         default: Date.now()
-    },
-    group: {
-        type: ObjectId,
-        ref: 'Group'
-    },
-    author: {
-        type: ObjectId,
-        ref: 'User'
     }
 
 });
@@ -33,4 +29,4 @@ var postSchema = new Schema({
 /**
  * Exports model.
  */
-module.exports = mongoose.model('Post', postSchema);
+module.exports = mongoose.model('Group', groupSchema);
