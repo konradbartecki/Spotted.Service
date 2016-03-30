@@ -20,8 +20,11 @@ var postSchema = new Schema({
         default: Date.now()
     },
     group: {
-        type: ObjectId,
-        ref: 'Group'
+        id: {
+            type: ObjectId,
+            ref: 'Group'
+        },
+        name: String
     },
     author: {
         type: ObjectId,
