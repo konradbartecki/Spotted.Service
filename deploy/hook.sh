@@ -12,7 +12,7 @@ if [ -f /home/antos/tmp/master.tar.gz ]; then
     rm -rf /home/antos/tmp
     mkdir /home/antos/tmp
     cd /home/antos/www
-    npm install
+    # npm install
     nodejs /home/antos/www/server.js
     # Delete current directory
     # Unzip the zip file
