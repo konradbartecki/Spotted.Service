@@ -36,26 +36,34 @@ exports.create = function(req, res) {
     if(req.file) {
         image = '/uploads/images/posts/' + req.file.filename;
     }
-
-    var post = new postSchema ({
-
-        description: req.body.description,
-        image: image,
-        created: date,
-        group: req.body.group,
-        author: req.body.user
-
-    });
-
-    post.save(function(err) {
-        if (err) {
-            // Error unknown.
-            res.status(500);
-            res.json({ status: 1500 });
+    
+    groupSchema.findOne({ _id : req.body.group }, function(err, group) {
+        if(err) {
+            res.send(err);
         } else {
-            // Created
-            res.status(201);
-            res.json({ status: 201 });
+            var post = new postSchema ({
+                description: req.body.description,
+                image: image,
+                created: date,
+                group: {
+                    id: req.body.group,
+                    name: group.name
+                },
+                author: req.body.user
+            });
+            
+            post.save(function(err) {
+                if (err) {
+                    // Error unknown.
+                    res.status(500);
+                    res.json({ status: 1500 });
+                } else {
+                    // Created
+                    res.status(201);
+                    res.json({ status: 201 });
+                }
+            });
+            
         }
     });
 
