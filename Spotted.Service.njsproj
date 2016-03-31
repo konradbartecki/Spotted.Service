@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{aa813bdc-0986-49af-afaf-6c4e135eed50}</ProjectGuid>
+    <ProjectHome />
+    <ProjectView>ProjectFiles</ProjectView>
+    <StartupFile>server.js</StartupFile>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Content Include="bower.json" />
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+    <Compile Include="gulpfile.js" />
+    <Compile Include="server.js" />
+    <Compile Include="deploy\hook.js" />
+    <Compile Include="app\config\app.config.js" />
+    <Compile Include="app\config\env\env.config.js" />
+    <Compile Include="app\config\lib\express.config.js" />
+    <Compile Include="app\config\lib\mongoose.config.js" />
+    <Compile Include="app\modules\comments\client\comments.client.module.js" />
+    <Compile Include="app\modules\comments\client\controllers\comments.client.controllers.js" />
+    <Compile Include="app\modules\comments\client\services\comments.client.services.js" />
+    <Content Include="app\modules\comments\client\views\comments.client.view.html" />
+    <Content Include="app\modules\comments\client\views\create\create.client.view.html" />
+    <Content Include="app\modules\comments\client\views\list\list.client.view.html" />
+    <Compile Include="app\modules\comments\server\controllers\comments.server.controllers.js" />
+    <Compile Include="app\modules\comments\server\models\comments.server.models.js" />
+    <Compile Include="app\modules\comments\server\routes\comments.server.routes.js" />
+    <Compile Include="app\modules\core\client\core.client.module.js" />
+    <Compile Include="app\modules\core\client\configs\core.client.config.js" />
+    <Compile Include="app\modules\core\client\controllers\core.client.controllers.js" />
+    <Compile Include="app\modules\core\client\routes\core.client.routes.js" />
+    <Content Include="app\modules\core\client\views\home\home.client.view.html" />
+    <Content Include="app\modules\core\client\views\_partials\footer.client.view.html" />
+    <Content Include="app\modules\core\client\views\_partials\header.client.view.html" />
+    <Compile Include="app\modules\core\server\controllers\core.server.controllers.js" />
+    <Compile Include="app\modules\core\server\routes\core.server.routes.js" />
+    <Content Include="app\modules\core\server\views\index.server.view.html" />
+    <Content Include="app\modules\core\server\views\layout.server.view.html" />
+    <Compile Include="app\modules\groups\server\controllers\groups.server.controllers.js" />
+    <Compile Include="app\modules\groups\server\models\groups.server.models.js" />
+    <Compile Include="app\modules\groups\server\routes\groups.server.routes.js" />
+    <Compile Include="app\modules\posts\client\posts.client.module.js" />
+    <Compile Include="app\modules\posts\client\controllers\posts.client.controllers.js" />
+    <Compile Include="app\modules\posts\client\routes\posts.client.routes.js" />
+    <Compile Include="app\modules\posts\client\services\posts.client.services.js" />
+    <Content Include="app\modules\posts\client\views\posts.client.view.html" />
+    <Content Include="app\modules\posts\client\views\create\create.client.view.html" />
+    <Content Include="app\modules\posts\client\views\list\list.client.view.html" />
+    <Compile Include="app\modules\posts\server\controllers\posts.server.controllers.js" />
+    <Compile Include="app\modules\posts\server\models\posts.server.models.js" />
+    <Compile Include="app\modules\posts\server\routes\posts.server.routes.js" />
+    <Compile Include="app\modules\users\client\users.client.module.js" />
+    <Compile Include="app\modules\users\client\configs\users.client.configs.js" />
+    <Compile Include="app\modules\users\client\controllers\users.client.controllers.js" />
+    <Compile Include="app\modules\users\client\services\users.client.service.js" />
+    <Content Include="app\modules\users\client\views\authentication\signin\signin.client.view.html" />
+    <Content Include="app\modules\users\client\views\authentication\signup\signup.client.view.html" />
+    <Compile Include="app\modules\users\server\controllers\users.server.controllers.js" />
+    <Compile Include="app\modules\users\server\models\users.server.models.js" />
+    <Compile Include="app\modules\users\server\routes\users.server.routes.js" />
+    <Content Include="assets\css\animate.css" />
+    <Content Include="assets\css\normalize.css" />
+    <Content Include="public\assets\css\app.min.css" />
+    <Content Include="public\assets\css\vendor.min.css" />
+    <Content Include="public\assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="public\assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="public\assets\img\mockup-browser.png" />
+    <Content Include="public\assets\img\mockup-mobile.png" />
+    <Content Include="public\assets\img\mockup.png" />
+    <Content Include="public\assets\img\pattern-geometry.png" />
+    <Content Include="public\assets\img\user-female.png" />
+    <Content Include="public\assets\img\bg-auth.jpg" />
+    <Content Include="public\assets\img\bg-city.jpg" />
+    <Content Include="public\assets\img\user.jpg" />
+    <Compile Include="public\assets\js\app-min.js" />
+    <Compile Include="public\assets\js\app.js" />
+    <Compile Include="public\assets\js\vendor-min.js" />
+    <Compile Include="public\assets\js\vendor.js" />
+    <Content Include="public\assets\img\brand\icon.png" />
+    <Content Include="public\assets\img\brand\logo-spotted-white.png" />
+    <Content Include="public\assets\img\brand\logo-spotted.png" />
+    <Content Include="public\assets\img\brand\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="app" />
+    <Folder Include="app\config" />
+    <Folder Include="app\config\env" />
+    <Folder Include="app\config\lib" />
+    <Folder Include="app\modules" />
+    <Folder Include="app\modules\comments" />
+    <Folder Include="app\modules\comments\client" />
+    <Folder Include="app\modules\comments\client\controllers" />
+    <Folder Include="app\modules\comments\client\services" />
+    <Folder Include="app\modules\comments\client\views" />
+    <Folder Include="app\modules\comments\client\views\create" />
+    <Folder Include="app\modules\comments\client\views\list" />
+    <Folder Include="app\modules\comments\server" />
+    <Folder Include="app\modules\comments\server\controllers" />
+    <Folder Include="app\modules\comments\server\models" />
+    <Folder Include="app\modules\comments\server\routes" />
+    <Folder Include="app\modules\core" />
+    <Folder Include="app\modules\core\client" />
+    <Folder Include="app\modules\core\client\configs" />
+    <Folder Include="app\modules\core\client\controllers" />
+    <Folder Include="app\modules\core\client\routes" />
+    <Folder Include="app\modules\core\client\views" />
+    <Folder Include="app\modules\core\client\views\_partials" />
+    <Folder Include="app\modules\core\client\views\home" />
+    <Folder Include="app\modules\core\server" />
+    <Folder Include="app\modules\core\server\controllers" />
+    <Folder Include="app\modules\core\server\routes" />
+    <Folder Include="app\modules\core\server\views" />
+    <Folder Include="app\modules\groups" />
+    <Folder Include="app\modules\groups\server" />
+    <Folder Include="app\modules\groups\server\controllers" />
+    <Folder Include="app\modules\groups\server\models" />
+    <Folder Include="app\modules\groups\server\routes" />
+    <Folder Include="app\modules\posts" />
+    <Folder Include="app\modules\posts\client" />
+    <Folder Include="app\modules\posts\client\controllers" />
+    <Folder Include="app\modules\posts\client\routes" />
+    <Folder Include="app\modules\posts\client\services" />
+    <Folder Include="app\modules\posts\client\views" />
+    <Folder Include="app\modules\posts\client\views\create" />
+    <Folder Include="app\modules\posts\client\views\list" />
+    <Folder Include="app\modules\posts\server" />
+    <Folder Include="app\modules\posts\server\controllers" />
+    <Folder Include="app\modules\posts\server\models" />
+    <Folder Include="app\modules\posts\server\routes" />
+    <Folder Include="app\modules\users" />
+    <Folder Include="app\modules\users\client" />
+    <Folder Include="app\modules\users\client\configs" />
+    <Folder Include="app\modules\users\client\controllers" />
+    <Folder Include="app\modules\users\client\services" />
+    <Folder Include="app\modules\users\client\views" />
+    <Folder Include="app\modules\users\client\views\authentication" />
+    <Folder Include="app\modules\users\client\views\authentication\signin" />
+    <Folder Include="app\modules\users\client\views\authentication\signup" />
+    <Folder Include="app\modules\users\server" />
+    <Folder Include="app\modules\users\server\controllers" />
+    <Folder Include="app\modules\users\server\models" />
+    <Folder Include="app\modules\users\server\routes" />
+    <Folder Include="assets" />
+    <Folder Include="assets\css" />
+    <Folder Include="assets\fonts" />
+    <Folder Include="assets\fonts\open-sans" />
+    <Folder Include="assets\scss" />
+    <Folder Include="assets\scss\_includes" />
+    <Folder Include="assets\scss\_includes\_components" />
+    <Folder Include="assets\scss\_includes\_elements" />
+    <Folder Include="assets\scss\_includes\_pages" />
+    <Folder Include="deploy" />
+    <Folder Include="public" />
+    <Folder Include="public\assets" />
+    <Folder Include="public\assets\css" />
+    <Folder Include="public\assets\fonts" />
+    <Folder Include="public\assets\fonts\fira-sans" />
+    <Folder Include="public\assets\fonts\open-sans" />
+    <Folder Include="public\assets\img" />
+    <Folder Include="public\assets\img\brand" />
+    <Folder Include="public\assets\js" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
