@@ -31,12 +31,16 @@ gulp.task('js:vendor', function() {
             config.bowerDir + '/bootstrap-select/bootstrap-select.min.js',
             config.bowerDir + '/moment/min/moment-with-locales.min.js',
             config.bowerDir + '/angular/angular.min.js',
+            config.bowerDir + '/angular-animate/angular-animate.min.js',
+            config.bowerDir + '/angular-resource/angular-resource.min.js',
             config.bowerDir + '/angular-ui-router/release/angular-ui-router.js',
+            config.bowerDir + '/angular-loading-bar/build/loading-bar.min.js',
             config.bowerDir + '/angular-jwt/dist/angular-jwt.js',
             config.bowerDir + '/ng-file-upload/ng-file-upload.min.js',
             config.bowerDir + '/angular-bootstrap/ui-bootstrap.min.js',
             config.bowerDir + '/angular-bootstrap/ui-bootstrap-tpls.min.js',
             config.bowerDir + '/angular-bootstrap-select/build/angular-bootstrap-select.min.js',
+            config.bowerDir + '/ng-tags-input/ng-tags-input.min.js',
             config.bowerDir + '/angular-moment/angular-moment.min.js'
         ])
         .pipe(concat('vendor.js'))
@@ -49,14 +53,16 @@ gulp.task('js:vendor', function() {
  */
 gulp.task('js:app', function() {
     return gulp.src([
+            config.appDir + '/modules/core/client/app/app.init.js',
+            config.appDir + '/modules/core/client/app/app.config.js',
+            config.appDir + '/modules/core/client/app/app.run.js',
+            config.appDir + '/modules/core/client/app/app.constants.js',
             config.appDir + '/modules/**/client/configs/*.js',
             config.appDir + '/modules/**/client/*.js',
             config.appDir + '/modules/**/client/directives/*.js',
             config.appDir + '/modules/**/client/services/*.js',
             config.appDir + '/modules/**/client/routes/*.js',
-            config.appDir + '/modules/**/client/controllers/*.js',
-            config.assetsDir + '/js/functions/*.js',
-            config.assetsDir + '/js/*.js'
+            config.appDir + '/modules/**/client/controllers/*.js'
         ])
         .pipe(concat('app.js'))
         .pipe(minifyJs({exclude: ['tasks']}))
@@ -87,6 +93,9 @@ gulp.task('css:vendor', function () {
     gulp.src([
             config.bowerDir + '/bootstrap/dist/css/bootstrap.min.css',
             config.bowerDir + '/bootstrap-select/bootstrap-select.min.css',
+            config.bowerDir + '/angular-loading-bar/build/loading-bar.min.css',
+            config.bowerDir + '/ng-tags-input/ng-tags-input.min.css',
+            config.bowerDir + '/ng-tags-input/ng-tags-input.bootstrap.min.css',
             config.bowerDir + '/font-awesome/css/font-awesome.min.css',
             config.assetsDir + '/css/*.css'
         ])
@@ -138,6 +147,17 @@ gulp.task('fonts', function () {
         .pipe(gulp.dest(config.publicDir + '/assets/fonts'));
 });
 
+/**
+ * Task for images.
+ */
+gulp.task('img', function() {
+    return gulp.src([
+            config.assetsDir + '/img/**/**/*.*'
+        ])
+        .pipe(plumber())
+        .pipe(gulp.dest(config.publicDir + '/assets/img'));
+});
+
 gulp.task('default', [
-    'js', 'css', 'fonts'
+    'js', 'css', 'fonts', 'img'
 ]);

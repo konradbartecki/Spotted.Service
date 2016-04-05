@@ -1,40 +1,55 @@
-<div class="container">
-    <div class="navbar-header">
-        <a data-ng-if="isHome" class="navbar-brand" href="/">
-            <img src="/assets/img/brand/logo-spotted.png" alt="Spotted">
-        </a>
-        <a data-ng-if="!isHome" class="navbar-brand" href="/posts">
-            <img src="/assets/img/brand/icon.png" alt="Spotted">
-        </a>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" data-ng-controller="headerController">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="navbar-header">
+                    <a role="button" class="navbar-brand" data-ng-href="/">
+                        <img src="/assets/img/brand/icon.svg" alt="Spotted">
+                    </a>
+                </div>
+                <ul class="nav navbar-nav navbar-nav-site">
+                    <li data-ui-sref-active="active">
+                        <a role="button" data-ui-sref="home">
+                            Ogłoszenia
+                        </a>
+                    </li>
+                    <li data-ui-sref-active="active">
+                        <a role="button" data-ui-sref="groups">
+                            Grupy
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-nav-user navbar-right" data-ng-if="$root.user">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-globe"></i>
+                        </a>
+                    </li>
+                    <li uib-dropdown>
+                        <a href="#" uib-dropdown-toggle>
+                            <i class="fa fa-user"></i>
+                        </a>
+                        <ul role="menu" uib-dropdown-menu>
+                            <li role="menuitem"><a role="button" data-ui-sref="user.posts">Twoje ogłoszenia</a></li>
+                            <li role="menuitem"><a role="button" data-ui-sref="user.groups">Twoje grupy</a></li>
+                            <li role="menuitem"><a role="button" data-ui-sref="user.settings">Ustawienia</a></li>
+                            <li class="divider"></li>
+                            <li role="menuitem"><a role="button" data-ng-click="signout()">Wyloguj się</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-nav-user navbar-right" data-ng-if="!$root.user">
+                    <li uib-dropdown>
+                        <a role="button" uib-dropdown-toggle>
+                            <i class="fa fa-user"></i>
+                        </a>
+                        <ul role="menu" uib-dropdown-menu>
+                            <li role="menuitem"><a role="button" data-ui-sref="auth.signin">Zaloguj się</a></li>
+                            <li role="menuitem"><a role="button" data-ui-sref="auth.signup">Załóż konto</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <ul class="nav navbar-nav navbar-user navbar-right" data-ng-show="!$root.user">
-        <li class="navbar-nav-auth">
-            <a role="button" data-ng-click="openModalAuth('signin')" class="navbar-nav-signin">
-                <i class="fa fa-lock"></i>
-                <span class="hidden-xs">
-                    Zaloguj się
-                </span>
-            </a>
-        </li>
-        <li class="navbar-nav-auth">
-            <a role="button" data-ng-click="openModalAuth('signup')" class="navbar-nav-signup">
-                <i class="fa fa-user-plus"></i>
-                <span class="hidden-xs">
-                    Załóż konto
-                </span>
-            </a>
-        </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-user navbar-right" data-ng-show="$root.user">
-        <li class="navbar-nav-user">
-            <a role="button" data-uib-tooltip="Powiadomienia" data-tooltip-placement="bottom" data-tooltip-popup-delay="300">
-                <i class="fa fa-globe"></i>
-            </a>
-        </li>
-        <li class="navbar-nav-user">
-            <a role="button" data-ng-click="signout()" data-uib-tooltip="Wyloguj" data-tooltip-placement="bottom" data-tooltip-popup-delay="300">
-                <i class="fa fa-power-off"></i>
-            </a>
-        </li>
-    </ul>
-</div>
+</nav>

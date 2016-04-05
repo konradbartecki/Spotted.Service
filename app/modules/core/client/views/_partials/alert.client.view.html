@@ -1,0 +1,5 @@
+<div class="alert-item" data-ng-class="{ 'alert-error' : $root.alerts.error, 'alert-warning' : $root.alerts.warning, 'alert-success' : $root.alerts.success }">
+    <span class="alert-message" data-ng-if="$root.alerts.error">{{$root.alerts.error}}</span>
+    <span class="alert-message" data-ng-if="$root.alerts.warning">{{$root.alerts.warning}}</span>
+    <span class="alert-message" data-ng-if="$root.alerts.success">{{$root.alerts.success}}</span>
+</div>

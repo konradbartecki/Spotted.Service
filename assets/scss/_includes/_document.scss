@@ -1,17 +1,24 @@
-@-ms-viewport { width: 100%; }
+@-ms-viewport {
+  width: 100%; height: auto;
+  user-zoom: fixed;
+  max-zoom: 1;
+  min-zoom: 1;
+}
 
 html, body {
   width: 100%;
 }
 
 body {
+  padding-top: 60px;
   background-color: $light;
   color: $dark;
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
-  &.site-app {
-    padding-top: 60px;
-  }
+}
+
+.site-header, .site-content {
+  width: 100%;
 }
 
 a {
@@ -23,4 +30,8 @@ a {
     outline: none;
     text-decoration: underline;
   }
+}
+
+strong {
+  font-weight: 600;
 }

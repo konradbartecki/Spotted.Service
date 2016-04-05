@@ -12,15 +12,19 @@
   "devDependencies": {
     "jquery": "^2.2.1",
     "bootstrap": "^3.3.6",
+    "bootstrap-select": "^1.10.0",
+    "moment": "^2.12.0",
     "font-awesome": "^4.5.0",
     "angular": "^1.5.0",
     "angular-ui-router": "^0.2.18",
     "angular-jwt": "^0.0.9",
+    "angular-moment": "^0.10.3",
     "ng-file-upload": "^12.0.4",
     "angular-bootstrap": "^1.2.5",
     "angular-bootstrap-select": "^0.0.5",
-    "bootstrap-select": "^1.10.0",
-    "moment": "^2.12.0",
-    "angular-moment": "^0.10.3"
+    "ng-tags-input": "^3.0.0",
+    "angular-resource": "^1.5.3",
+    "angular-loading-bar": "^0.9.0",
+    "angular-animate": "^1.5.3"
   }
 }

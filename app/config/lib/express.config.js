@@ -57,14 +57,16 @@ exports.initMiddleware = function () {
 
 
     var storage = multer.diskStorage({
-        destination: './public/uploads/images/posts/',
+        destination: './public/uploads/images/',
         filename: function (req, file, cb) {
             crypto.pseudoRandomBytes(16, function (err, raw) {
                 if (err) {
-                    res.send(err);
-                    return;
+                    // Error unknown.
+                    res.status(500);
+                    res.json({ status: 500 });
+                } else {
+                    cb(null, raw.toString('hex') + path.extname(file.originalname));
                 }
-                cb(null, raw.toString('hex') + path.extname(file.originalname))
             })
         }
     });

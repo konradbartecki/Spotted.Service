@@ -1,36 +1,20 @@
 angular.module('core')
 
-    .controller('coreController', ['$scope', '$state', function($scope, $state) {
+    .controller('coreController',
+        function($scope, $rootScope, $state) {
 
-        $scope.state = $state;
+        })
 
-        $scope.$watch('state.current.name', function(newValue) {
-            $scope.currentState = newValue;
-            if($scope.currentState == 'home') {
-                $scope.isHome = true;
-            } else {
-                $scope.isHome = false;
-            }
-        });
-
-    }])
-
-    .controller('headerController', ['$scope', '$state', '$window', '$rootScope', '$uibModal',
-        function($scope, $state, $window, $rootScope, $uibModal) {
+    .controller('headerController', ['$scope', '$state', '$window', '$rootScope',
+        function($scope, $state, $window, $rootScope) {
 
             $scope.signout = function() {
                 $window.localStorage.removeItem('token');
                 $rootScope.user = false;
+                $rootScope.alerts = {
+                  success: 'Poprawnie wylogowano z serwisu spotted. Zapraszamy ponownie!'
+                };
                 $state.go('home');
-            };
-
-            $scope.openModalAuth = function(tpl) {
-                var modalAuth = $uibModal.open({
-                    animation: false,
-                    templateUrl: 'app/modules/users/client/views/authentication/' + tpl + '/' + tpl + '.client.view.html',
-                    controller: 'authController',
-                    size: 'lg'
-                });
             };
 
         }]);

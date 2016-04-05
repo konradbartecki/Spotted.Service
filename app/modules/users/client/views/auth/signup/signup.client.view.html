@@ -1,0 +1,35 @@
+<header class="margin-bottom-30">
+    <a href="/" class="font-size-12 font-weight-600">
+        <i class="fa fa-arrow-circle-left margin-right-5"></i>wróć do strony głównej
+    </a>
+    <h2 class="font-weight-300 margin-top-20">
+        Dołącz do spotted :)
+    </h2>
+</header>
+<form role="form" name="signupForm" class="form form-auth" data-ng-submit="signUp(credentials)" novalidate>
+    <div class="form-group" data-ng-class="{ 'has-error' : signupForm.email.$invalid && !signupForm.email.$pristine }">
+        <input type="email" name="email" id="email" class="form-control input-md" data-ng-model="credentials.email" placeholder="Adres e-mail" required>
+    </div>
+    <div class="form-group" data-ng-class="{ 'has-error' : signupForm.password.$invalid && !signupForm.password.$pristine }">
+        <input type="password" name="password" id="password" class="form-control input-md" data-ng-model="credentials.password" placeholder="Hasło" data-ng-minlength="6" required>
+    </div>
+    <div class="form-group" data-ng-class="{ 'has-error' : signupForm.checkPassword.$invalid && !signupForm.checkPassword.$pristine }">
+        <input type="password" name="checkPassword" id="checkPassword" class="form-control input-md" data-ng-model="credentials.checkPassword" placeholder="Powtórz hasło" data-ng-minlength="6" data-ng-compare="credentials.password" required>
+    </div>
+    <button type="submit" class="btn btn-md btn-success" data-ng-disabled="signupForm.$invalid">
+        Załóż konto na spotted!
+    </button>
+</form>
+<footer class="margin-top-30">
+    <p class="font-size-12 font-color-grey">
+        Masz już swoje konto?
+        <a href="/signin" class="font-weight-600 font-color-red">
+            Przejdź do logowania!
+        </a>
+    </p>
+    <hr>
+    <p class="font-color-grey font-size-12">
+        Korzystając z serwisu, akceptujesz nasz <a href="#">Regulamin</a> oraz potwierdzasz zapoznanie się z <a
+            href="#">Zasadami dotyczącymi danych</a> , w tym z <a href="#">Zasadami stosowania plików cookie</a>.
+    </p>
+</footer>

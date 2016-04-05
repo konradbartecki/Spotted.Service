@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="user-profile-box">
+            <h3 class="user-profile-box-title">
+                Zmień swoje zdjęcie
+            </h3>
+            <form name="changePictureForm" class="user-change-picture" data-ng-submit="changePicture(credentials)">
+                <div class="user-picture-preview">
+                    <img src="" data-ngf-src="credentials.picture">
+                    <div class="user-picture-preview-wrapper">
+                        <button type="button" class="btn btn-md btn-info user-picture-select" data-ngf-select data-ng-model="credentials.picture" data-ngf-pattern="'image/*'" data-ngf-accept="'image/*'" data-ngf-max-size="'5MB'" data-ng-required="true">
+                            Wybierz zdjęcie
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-md btn-success" data-ng-disabled="changePictureForm.$invalid">
+                    Zmień swoje zdjęcie
+                </button>
+            </form>
+            <hr>
+            <p class="font-size-12 font-color-grey">
+                Maksymalny rozmiar pliku to 5MB.<br>
+                Dopuszczalne formaty: jpg, png, jpeg
+            </p>
+        </div>
+        <div class="user-profile-box">
+            <h3 class="user-profile-box-title">
+                Zmień hasło do konta
+            </h3>
+            <form role="form" name="changePasswordForm" class="form form-auth" data-ng-submit="changePassword(credentials)" novalidate>
+                <div class="form-group" data-ng-class="{ 'has-error' : changePasswordForm.password.$invalid && !changePasswordForm.password.$pristine }">
+                    <input type="password" name="passsword" id="password" class="form-control input-md" data-ng-model="credentials.password" placeholder="Aktualne hasło" required>
+                </div>
+                <div class="form-group" data-ng-class="{ 'has-error' : changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine }">
+                    <input type="password" name="newPassword" id="newPassword" class="form-control input-md" data-ng-model="credentials.newPassword" placeholder="Nowe hasło" data-ng-minlength="6" required>
+                </div>
+                <div class="form-group" data-ng-class="{ 'has-error' : changePasswordForm.checkNewPassword.$invalid && !changePasswordForm.checkNewPassword.$pristine }">
+                    <input type="password" name="checkNewPassword" id="checkNewPassword" class="form-control input-md" data-ng-compare="credentials.newPassword" data-ng-model="credentials.checkNewPassword" placeholder="Powtórz nowe hasło" data-ng-minlength="6" required>
+                </div>
+                <button type="submit" class="btn btn-md btn-success" data-ng-disabled="changePasswordForm.$invalid">
+                    Zmień swoje hasło
+                </button>
+            </form>
+            <hr>
+            <p class="font-size-12 font-color-grey">
+                Wprowadź aktualne hasło i dwa razy nowe hasło. Uwaga! Po zmianie hasła zostaniesz wylogowany z serwisu.
+            </p>
+        </div>
+    </div>
+</div>

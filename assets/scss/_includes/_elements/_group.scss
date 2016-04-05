@@ -1,0 +1,57 @@
+.groups {
+  .group-search {
+    padding: 20px 20px;
+    margin-bottom: 30px;
+    background-color: $white;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    .form-group {
+      margin-bottom: 0;
+    }
+  }
+  .group-list {
+    margin-bottom: 30px;
+    background-color: $white;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    .group-item {
+      padding: 20px 20px;
+      border-bottom: 1px solid $light;
+      overflow: hidden;
+      .group-item-picture {
+        float: left;
+        width: 60px;
+        img {
+          width: 40px; height: 40px;
+          object-fit: cover;
+          object-position: center;
+          border-radius: 2px;
+          border: 1px solid $grey-light;
+        }
+      }
+      .group-item-data {
+        float: left;
+        width: calc(100% - 120px);
+        padding: 3px 0 0;
+        .group-item-data-title {
+          font-size: 14px;
+          margin: 0;
+          small {
+            font-size: 13px;
+          }
+        }
+        .group-item-data-posts {
+          font-size: 12px;
+          color: darken($grey-light, 20%);
+          margin: 3px 0 0 0;
+        }
+      }
+      .group-item-join {
+        float: left;
+        width: 60px;
+        text-align: right;
+        .btn {
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+}

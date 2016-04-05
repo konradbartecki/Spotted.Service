@@ -10,21 +10,17 @@
 // =============================================================================
 // COMPONENTS
 // =============================================================================
-@import '_includes/_components/_buttons.scss';
-@import '_includes/_components/_modals.scss';
+@import '_includes/_components/_brands.scss';
+@import '_includes/_components/_navbars.scss';
 @import '_includes/_components/_forms.scss';
-@import '_includes/_components/_alerts.scss';
-@import '_includes/_components/_dropdowns.scss';
+@import '_includes/_components/_buttons.scss';
 @import '_includes/_components/_tooltips.scss';
+@import '_includes/_components/_alerts.scss';
 
 // =============================================================================
 // ELEMENTS
 // =============================================================================
-@import '_includes/_elements/_header.scss';
-@import '_includes/_elements/_footer.scss';
-
-// =============================================================================
-// PAGES
-// =============================================================================
-@import '_includes/_pages/_home.scss';
-@import '_includes/_pages/_posts.scss';
+@import '_includes/_elements/_auth.scss';
+@import '_includes/_elements/_user.scss';
+@import '_includes/_elements/_post.scss';
+@import '_includes/_elements/_group.scss';
