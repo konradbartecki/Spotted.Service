@@ -27,8 +27,8 @@ angular.module('posts')
                 $scope.data.picture = null;
             };
 
-            $scope.getGroupsByName = function(query) {
-                return POST_SERVICE.getGroupsByName(query).then(function(response) {
+            $scope.getGroupsByName = function(groupName) {
+                return POST_SERVICE.getGroupsByName(groupName).then(function(response) {
                     return response;
                 });
             };

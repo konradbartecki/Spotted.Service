@@ -1,24 +1,12 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation" data-ng-controller="headerController">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="navbar-header">
-                    <a role="button" class="navbar-brand" data-ng-href="/">
+                    <a role="button" class="navbar-brand" data-ui-sref="home">
                         <img src="/assets/img/brand/icon.svg" alt="Spotted">
                     </a>
                 </div>
-                <ul class="nav navbar-nav navbar-nav-site">
-                    <li data-ui-sref-active="active">
-                        <a role="button" data-ui-sref="home">
-                            Ogłoszenia
-                        </a>
-                    </li>
-                    <li data-ui-sref-active="active">
-                        <a role="button" data-ui-sref="groups">
-                            Grupy
-                        </a>
-                    </li>
-                </ul>
                 <ul class="nav navbar-nav navbar-nav-user navbar-right" data-ng-if="$root.user">
                     <li>
                         <a href="#">
@@ -31,10 +19,9 @@
                         </a>
                         <ul role="menu" uib-dropdown-menu>
                             <li role="menuitem"><a role="button" data-ui-sref="user.posts">Twoje ogłoszenia</a></li>
-                            <li role="menuitem"><a role="button" data-ui-sref="user.groups">Twoje grupy</a></li>
                             <li role="menuitem"><a role="button" data-ui-sref="user.settings">Ustawienia</a></li>
                             <li class="divider"></li>
-                            <li role="menuitem"><a role="button" data-ng-click="signout()">Wyloguj się</a></li>
+                            <li role="menuitem"><a role="button" data-ng-click="signOut()">Wyloguj się</a></li>
                         </ul>
                     </li>
                 </ul>

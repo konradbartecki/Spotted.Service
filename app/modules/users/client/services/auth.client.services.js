@@ -1,30 +1,34 @@
 angular.module('users')
 
-    .factory('AUTH_SERVICE', function($http, $state, $window, API, AUTH_EVENTS) {
+    .factory('AUTH_SERVICE', function($http, $state, API, AUTH_EVENTS, $window) {
         return {
 
-            signIn: function(credentials) {
-                return $http
-                    .post(API.auth.signIn, credentials)
-                    .then(function successCallback(response) {
-                        var token = response.data.token;
-                        $window.localStorage.setItem('token', token);
-                        AUTH_EVENTS.signInSuccess();
-                        $state.go('home');
-                    }, function errorCallback(response) {
-                        AUTH_EVENTS.signInFailed(response.data.status);
-                    });
+            signIn: function(data) {
+                return $http({
+                    url: API.auth.signIn,
+                    method: 'POST',
+                    data: data
+                }).then(function successCallback(response) {
+                    var token = response.data.token;
+                    $window.localStorage.setItem('token', token);
+                    AUTH_EVENTS.signInSuccess();
+                    $state.go('home');
+                }, function errorCallback(response) {
+                    AUTH_EVENTS.signInFailed(response.data.status);
+                });
             },
 
-            signUp: function(credentials) {
-                return $http
-                    .post(API.auth.signUp, credentials)
-                    .then(function successCallback(){
-                        AUTH_EVENTS.signUpSuccess();
-                        $state.go('auth.signin');
-                    }, function errorCallback(response) {
-                        AUTH_EVENTS.signUpFailed(response.data.status);
-                    });
+            signUp: function(data) {
+                return $http({
+                    url: API.auth.signUp,
+                    method: 'POST',
+                    data: data
+                }).then(function successCallback() {
+                    AUTH_EVENTS.signUpSuccess();
+                    $state.go('auth.signin');
+                }, function errorCallback(response) {
+                    AUTH_EVENTS.signUpFailed(response.data.status);
+                });
             }
 
         }

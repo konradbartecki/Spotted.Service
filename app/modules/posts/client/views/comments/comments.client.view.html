@@ -1,39 +1,9 @@
 <section class="comments">
-    <section data-ng-if="$root.user" class="comment-create">
-        <form class="form form-auth" name="createCommentForm" data-ng-submit="createComment(post._id, data)" novalidate>
-            <div class="form-group margin-bottom-0">
-                <input type="text" id="message" name="message" class="form-control form-control-white input-sm" data-ng-model="data.message" placeholder="Dodaj komentarz..." required>
-            </div>
-        </form>
-        <hr class="margin-top-5 margin-bottom-5">
+    <section class="comment-create"
+             data-ng-if="$root.user"
+             data-ng-include="'app/modules/posts/client/views/comments/_partials/create.client.view.html'">
     </section>
-    <section class="comments-list">
-        <p data-ng-if="comments.length == 0" class="margin-left-5 margin-bottom-0">
-            <small class="font-color-dark">
-                Jeszcze nikt nie dodał komentarza, bądź pierwszy!
-                <a data-ng-if="!$root.user" href="/signin" class="font-weight-600">
-                    Zaloguj się!
-                </a>
-            </small>
-        </p>
-        <div class="comment-item" data-ng-repeat="comment in comments | orderBy: '-created' | limitTo: limitTo">
-            <a data-ng-if="$root.user.id == comment.author._id" data-ng-click="deleteComment(comment._id, post._id)" role="button" class="comment-item-delete" data-uib-tooltip="Usuń komentarz!" data-tooltip-placement="left">
-                <i class="fa fa-close"></i>
-            </a>
-            <div class="comment-item-author">
-                <img class="comment-item-author-picture" src="{{ comment.author.picture }}" alt="">
-            </div>
-            <div class="comment-item-data">
-                <div class="comment-item-content">
-                    <p class="comment-item-message">{{ comment.message }}</p>
-                    <p class="comment-item-created" am-time-ago="comment.created"></p>
-                </div>
-            </div>
-        </div>
-        <div class="text-right">
-            <a role="button" data-ng-if="!noMoreComments" class="font-size-12" data-ng-click="showMoreComments(post._id)">
-                Pokaż starsze komentarze
-            </a>
-        </div>
+    <section class="comments-list"
+             data-ng-include="'app/modules/posts/client/views/comments/_partials/list.client.view.html'">
     </section>
 </section>

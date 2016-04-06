@@ -1,20 +1,15 @@
 angular.module('core')
 
     .controller('coreController',
-        function($scope, $rootScope, $state) {
+        function($scope, $state, $rootScope, $window) {
 
-        })
-
-    .controller('headerController', ['$scope', '$state', '$window', '$rootScope',
-        function($scope, $state, $window, $rootScope) {
-
-            $scope.signout = function() {
+            $scope.signOut = function() {
                 $window.localStorage.removeItem('token');
                 $rootScope.user = false;
                 $rootScope.alerts = {
-                  success: 'Poprawnie wylogowano z serwisu spotted. Zapraszamy ponownie!'
+                    success: 'Poprawnie wylogowano z serwisu spotted. Zapraszamy ponownie!'
                 };
                 $state.go('home');
             };
 
-        }]);
+        });

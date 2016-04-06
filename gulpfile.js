@@ -28,18 +28,13 @@ gulp.task('js:vendor', function() {
     return gulp.src([
             config.bowerDir + '/jquery/dist/jquery.min.js',
             config.bowerDir + '/bootstrap/dist/js/bootstrap.min.js',
-            config.bowerDir + '/bootstrap-select/bootstrap-select.min.js',
             config.bowerDir + '/moment/min/moment-with-locales.min.js',
             config.bowerDir + '/angular/angular.min.js',
-            config.bowerDir + '/angular-animate/angular-animate.min.js',
-            config.bowerDir + '/angular-resource/angular-resource.min.js',
             config.bowerDir + '/angular-ui-router/release/angular-ui-router.js',
-            config.bowerDir + '/angular-loading-bar/build/loading-bar.min.js',
             config.bowerDir + '/angular-jwt/dist/angular-jwt.js',
             config.bowerDir + '/ng-file-upload/ng-file-upload.min.js',
             config.bowerDir + '/angular-bootstrap/ui-bootstrap.min.js',
             config.bowerDir + '/angular-bootstrap/ui-bootstrap-tpls.min.js',
-            config.bowerDir + '/angular-bootstrap-select/build/angular-bootstrap-select.min.js',
             config.bowerDir + '/ng-tags-input/ng-tags-input.min.js',
             config.bowerDir + '/angular-moment/angular-moment.min.js'
         ])
@@ -92,8 +87,6 @@ gulp.task('js', [
 gulp.task('css:vendor', function () {
     gulp.src([
             config.bowerDir + '/bootstrap/dist/css/bootstrap.min.css',
-            config.bowerDir + '/bootstrap-select/bootstrap-select.min.css',
-            config.bowerDir + '/angular-loading-bar/build/loading-bar.min.css',
             config.bowerDir + '/ng-tags-input/ng-tags-input.min.css',
             config.bowerDir + '/ng-tags-input/ng-tags-input.bootstrap.min.css',
             config.bowerDir + '/font-awesome/css/font-awesome.min.css',

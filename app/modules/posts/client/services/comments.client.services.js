@@ -3,15 +3,15 @@ angular.module('posts')
     .factory('COMMENT_SERVICE', function($http, API, $rootScope, COMMENT_EVENTS) {
         return {
 
-            getComments: function(id) {
-                return $http.get(API.posts + '/' + id + '/comments').then(function(response) {
+            getComments: function(postId) {
+                return $http.get(API.posts + '/' + postId + '/comments').then(function(response) {
                     return response.data;
                 });
             },
 
-            createComment: function(id, data) {
+            createComment: function(postId, data) {
                 return $http({
-                    url: API.posts + '/' + id + '/comments',
+                    url: API.posts + '/' + postId + '/comments',
                     method: 'POST',
                     data: {
                         message: data.message,
@@ -27,9 +27,9 @@ angular.module('posts')
                 });
             },
 
-            deleteComment: function(id) {
+            deleteComment: function(commentId) {
                 return $http({
-                    url: API.posts + '/comments/' + id,
+                    url: API.posts + '/comments/' + commentId,
                     method: 'DELETE',
                     headers: {
                         'x-access-token': $rootScope.token

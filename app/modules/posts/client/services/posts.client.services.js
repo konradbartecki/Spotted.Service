@@ -7,8 +7,8 @@ angular.module('posts')
                     return response.data;
                 });
             },
-            getGroupsByName: function(query) {
-                return $http.get(API.groups + '/' + query).then(function(response) {
+            getGroupsByName: function(groupName) {
+                return $http.get(API.groups + '/' + groupName).then(function(response) {
                     return response.data;
                 });
             },

@@ -14,7 +14,7 @@ angular.module('users')
             .state('auth.signin', {
                 url: '/signin',
                 templateUrl: 'app/modules/users/client/views/auth/signin/signin.client.view.html',
-                controller: 'authSigninController',
+                controller: 'authSignInController',
                 access: {
                     guest: true,
                     user: false
@@ -23,7 +23,7 @@ angular.module('users')
             .state('auth.signup', {
                 url: '/signup',
                 templateUrl: 'app/modules/users/client/views/auth/signup/signup.client.view.html',
-                controller: 'authSignupController',
+                controller: 'authSignUpController',
                 access: {
                     guest: true,
                     user: false

@@ -6,24 +6,20 @@
 var express     = require('express'),
     bcrypt      = require('bcryptjs'),
     jwt         = require('jsonwebtoken'),
-    moment      = require('moment'),
     app         = express();
 
-var userSchema  = require('../models/user.server.models');
+var userSchema  = require('../models/users.server.models');
 
 /**
  * User sign up function.
  */
-exports.signup = function(req, res) {
-
-    var date = moment(new Date).add(2, 'h');
+exports.signUp = function(req, res) {
 
     var hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
 
     var user = new userSchema ({
         email: req.body.email,
         password: hash,
-        created: date,
         gender: 2,
         groups: []
     });
@@ -54,7 +50,7 @@ exports.signup = function(req, res) {
 /**
  * User sign in function.
  */
-exports.signin = function(req, res) {
+exports.signIn = function(req, res) {
 
     userSchema.findOne({
         email: req.body.email
@@ -69,11 +65,7 @@ exports.signin = function(req, res) {
                 var token = jwt.sign({
                     user: {
                         id: user._id,
-                        email: user.email,
-                        created: user.created,
-                        picture: user.picture,
-                        gender: user.gender,
-                        groups: user.groups
+                        picture: user.picture
                     }
                 }, 'ja6ar66eq3fr75raCrareChuwAfaHaja', {
                     expiresIn: 60 * 60 * 24

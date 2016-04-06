@@ -1,27 +1,34 @@
 angular.module('users')
 
-    .controller('authController', ['$scope', function($scope) {
-        $scope.credentials = {
-            email: '',
-            password: ''
-        }
-    }])
+    .controller('authController', ['$scope',
+        function($scope) {
 
-    .controller('authSigninController',
+            $scope.data = {
+                email: '',
+                password: ''
+            }
+
+        }])
+
+    .controller('authSignInController',
         function($scope, $state, AUTH_SERVICE) {
-            $scope.signIn = function(credentials) {
-                AUTH_SERVICE.signIn(credentials).then(function() {
-                    $scope.credentials.password = '';
+
+            $scope.signIn = function(data) {
+                AUTH_SERVICE.signIn(data).then(function() {
+                    $scope.data.password = '';
                 });
             };
+
         })
 
-    .controller('authSignupController',
+    .controller('authSignUpController',
         function($scope, $state, AUTH_SERVICE) {
-            $scope.signUp = function(credentials) {
-                AUTH_SERVICE.signUp(credentials)
+
+            $scope.signUp = function(data) {
+                AUTH_SERVICE.signUp(data)
                     .then(function successCallback() {
-                        $scope.credentials = {};
+                        $scope.data = {};
                     });
             };
+
         });

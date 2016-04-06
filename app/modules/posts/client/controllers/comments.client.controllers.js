@@ -14,8 +14,8 @@ angular.module('posts')
                 }
             };
 
-            $scope.getComments = function(id) {
-                COMMENT_SERVICE.getComments(id).then(function(response) {
+            $scope.getComments = function(postId) {
+                COMMENT_SERVICE.getComments(postId).then(function(response) {
                     $scope.comments = response;
                     if($scope.comments.length > 3 && $scope.limitTo <= $scope.comments.length) {
                         $scope.noMoreComments = false;
@@ -25,15 +25,15 @@ angular.module('posts')
                 });
             };
 
-            $scope.createComment = function(id, data) {
-                COMMENT_SERVICE.createComment(id, data).then(function() {
-                    $scope.getComments(id);
+            $scope.createComment = function(postId, data) {
+                COMMENT_SERVICE.createComment(postId, data).then(function() {
+                    $scope.getComments(postId);
                     $scope.data.message = '';
                 });
             };
 
-            $scope.deleteComment = function(id, postId) {
-                COMMENT_SERVICE.deleteComment(id).then(function() {
+            $scope.deleteComment = function(commentId, postId) {
+                COMMENT_SERVICE.deleteComment(commentId).then(function() {
                     $scope.getComments(postId);
                 });
             };

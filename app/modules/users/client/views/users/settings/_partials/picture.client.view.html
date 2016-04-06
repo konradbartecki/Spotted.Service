@@ -1,0 +1,21 @@
+<h3 class="user-profile-box-title">
+    Zmień swoje zdjęcie
+</h3>
+<form name="changePictureForm" class="user-change-picture" data-ng-submit="changePicture(data)">
+    <div class="user-picture-preview">
+        <img src="" data-ngf-src="data.picture">
+        <div class="user-picture-preview-wrapper">
+            <button type="button" class="btn btn-md btn-info user-picture-select" data-ngf-select data-ng-model="data.picture" data-ngf-pattern="'image/*'" data-ngf-accept="'image/*'" data-ngf-max-size="'5MB'" data-ng-required="true">
+                Wybierz zdjęcie
+            </button>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-md btn-success" data-ng-disabled="data.$invalid">
+        Zmień swoje zdjęcie
+    </button>
+</form>
+<hr>
+<p class="font-size-12 font-color-grey">
+    Maksymalny rozmiar pliku to 5MB.<br>
+    Dopuszczalne formaty: jpg, png, jpeg
+</p>

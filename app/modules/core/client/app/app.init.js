@@ -4,12 +4,9 @@ var ApplicationConfiguration = (function () {
     var applicationModuleName = 'spotted';
     var applicationModuleVendorDependencies = [
         'ui.router',
-        'angular-loading-bar',
-        'ngAnimate',
         'angular-jwt',
         'ngFileUpload',
         'ui.bootstrap',
-        'angular-bootstrap-select',
         'angularMoment',
         'ngTagsInput'
     ];

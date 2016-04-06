@@ -6,15 +6,15 @@
         Dołącz do spotted :)
     </h2>
 </header>
-<form role="form" name="signupForm" class="form form-auth" data-ng-submit="signUp(credentials)" novalidate>
+<form role="form" name="signupForm" class="form form-auth" data-ng-submit="signUp(data)" novalidate>
     <div class="form-group" data-ng-class="{ 'has-error' : signupForm.email.$invalid && !signupForm.email.$pristine }">
-        <input type="email" name="email" id="email" class="form-control input-md" data-ng-model="credentials.email" placeholder="Adres e-mail" required>
+        <input type="email" name="email" id="email" class="form-control input-md" data-ng-model="data.email" placeholder="Adres e-mail" autocomplete="off" required>
     </div>
     <div class="form-group" data-ng-class="{ 'has-error' : signupForm.password.$invalid && !signupForm.password.$pristine }">
-        <input type="password" name="password" id="password" class="form-control input-md" data-ng-model="credentials.password" placeholder="Hasło" data-ng-minlength="6" required>
+        <input type="password" name="password" id="password" class="form-control input-md" data-ng-model="data.password" placeholder="Hasło" data-ng-minlength="6" autocomplete="off" required>
     </div>
     <div class="form-group" data-ng-class="{ 'has-error' : signupForm.checkPassword.$invalid && !signupForm.checkPassword.$pristine }">
-        <input type="password" name="checkPassword" id="checkPassword" class="form-control input-md" data-ng-model="credentials.checkPassword" placeholder="Powtórz hasło" data-ng-minlength="6" data-ng-compare="credentials.password" required>
+        <input type="password" name="checkPassword" id="checkPassword" class="form-control input-md" data-ng-model="data.checkPassword" placeholder="Powtórz hasło" data-ng-minlength="6" data-ng-compare="data.password" autocomplete="off" required>
     </div>
     <button type="submit" class="btn btn-md btn-success" data-ng-disabled="signupForm.$invalid">
         Załóż konto na spotted!

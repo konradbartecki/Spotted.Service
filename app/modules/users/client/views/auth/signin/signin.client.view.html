@@ -6,12 +6,12 @@
         Logowanie
     </h2>
 </header>
-<form role="form" name="signinForm" class="form form-auth" data-ng-submit="signIn(credentials)" novalidate>
+<form role="form" name="signinForm" class="form form-auth" data-ng-submit="signIn(data)" novalidate>
     <div class="form-group" data-ng-class="{ 'has-error' : signinForm.email.$invalid && !signinForm.email.$pristine }">
-        <input type="email" name="email" id="email" class="form-control input-md" data-ng-model="credentials.email" placeholder="Adres e-mail" required>
+        <input type="email" name="email" id="email" class="form-control input-md" data-ng-model="data.email" placeholder="Adres e-mail" required>
     </div>
     <div class="form-group" data-ng-class="{ 'has-error' : signinForm.password.$invalid && !signinForm.password.$pristine }">
-        <input type="password" name="password" id="password" class="form-control input-md" data-ng-model="credentials.password" placeholder="Hasło" required>
+        <input type="password" name="password" id="password" class="form-control input-md" data-ng-model="data.password" placeholder="Hasło" required>
     </div>
     <button type="submit" class="btn btn-md btn-success" data-ng-disabled="signinForm.$invalid">
         Zaloguj się do konta

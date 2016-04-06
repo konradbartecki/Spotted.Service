@@ -9,4 +9,11 @@ angular.module(ApplicationConfiguration.applicationModuleName)
         users: ApiURL + '/users',
         groups: ApiURL + '/groups',
         posts: ApiURL + '/posts'
+    })
+
+    .constant('USER_ROLES', {
+        all: '*',
+        admin: 'admin',
+        user: 'user',
+        guest: 'guest'
     });

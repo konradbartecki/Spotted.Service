@@ -1,7 +1,7 @@
 angular.module(ApplicationConfiguration.applicationModuleName)
 
-    .config(['$locationProvider', '$httpProvider', 'jwtInterceptorProvider', 'cfpLoadingBarProvider',
-        function ($locationProvider, $httpProvider, jwtInterceptorProvider, cfpLoadingBarProvider) {
+    .config(['$locationProvider', '$httpProvider', 'jwtInterceptorProvider',
+        function ($locationProvider, $httpProvider, jwtInterceptorProvider) {
             $locationProvider.html5Mode(true).hashPrefix('!');
 
             jwtInterceptorProvider.tokenGetter = function() {
@@ -10,6 +10,5 @@ angular.module(ApplicationConfiguration.applicationModuleName)
 
             $httpProvider.interceptors.push('jwtInterceptor');
 
-            cfpLoadingBarProvider.includeSpinner = false;
         }
     ]);
