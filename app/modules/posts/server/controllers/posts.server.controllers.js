@@ -23,9 +23,25 @@ exports.get = function(req, res) {
 };
 
 /**
+ * Get single post.
+ */
+exports.getSingle = function(req, res) {
+    postSchema.findOne({ _id: req.params.postId }).populate('author', 'picture').populate('group', 'name').exec(function(err, post) {
+        if(err) {
+            res.status(500);
+            res.json({ status: 500 });
+        } else {
+            res.json(post);
+        }
+    });
+};
+
+/**
  * Create post.
  */
 exports.create = function(req, res) {
+
+    var date = new Date().getTime();
 
     var picture = null;
 
@@ -37,7 +53,8 @@ exports.create = function(req, res) {
         message: req.body.message,
         picture: picture,
         group: req.body.group,
-        author: req.body.author
+        author: req.body.author,
+        created: date
     });
 
     post.save(function(err) {
@@ -52,4 +69,27 @@ exports.create = function(req, res) {
         }
     });
 
+};
+
+/**
+ * Post deactivate.
+ */
+exports.deactivate = function(req, res) {
+    postSchema.findOne({ _id: req.params.postId }, function(err, post) {
+        if(err) {
+            res.status(500);
+            res.json({ status: 500 });
+        } else {
+            post.active = false;
+            post.save(function(err) {
+                if(err) {
+                    res.status(500);
+                    res.json({ status: 500 });
+                } else {
+                    res.status(201);
+                    res.json({ status: 201 });
+                }
+            })
+        }
+    });
 };

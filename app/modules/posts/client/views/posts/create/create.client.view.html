@@ -1,0 +1,55 @@
+<section class="post-create" data-ng-controller="postsCreateController">
+    <div class="create-post" data-ng-click-any-where="closeCreatePost()">
+        <div class="create-post-author">
+            <img class="create-post-author-picture" src="{{ $root.user.picture }}" alt="">
+        </div>
+        <div class="create-post-content">
+            <a role="button" class="create-post-placeholder" data-ng-show="!activeCreatePost" data-ng-click="openCreatePost()">
+                Dodaj ogłoszenie!
+            </a>
+            <div class="create-post-form" data-ng-show="activeCreatePost">
+                <form role="form" name="createPostForm" data-ng-submit="createPost(data)" novalidate>
+                    <div class="form-group">
+                        <textarea name="message" id="message" data-ng-model="data.message" class="form-control post-form-message" required></textarea>
+                        <div class="post-form-picture-preview">
+                            <img src="" alt=""  data-ngf-src="data.picture">
+                        </div>
+                        <tags-input id="group" class="post-form-group" name="group" ng-model="data.group" key-property="name" display-property="name" min-tags="1" max-tags="1" add-from-autocomplete-only="true" placeholder="Dodaj grupę">
+                            <auto-complete source="getGroupsByName($query)"></auto-complete>
+                        </tags-input>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <a role="button" class="post-form-picture"
+                               uib-tooltip="Dodaj zdjęcie"
+                               data-tooltip-placement="top"
+                               data-ng-click="openCreatePost()"
+                               data-ngf-select
+                               data-ngf-change="openCreatePost()"
+                               data-ng-model="data.picture"
+                               data-ngf-pattern="'image/*'"
+                               data-ngf-accept="'image/*'"
+                               data-ngf-max-size="'5MB'"
+                            >
+                                <i class="fa fa-photo"></i>
+                            </a>
+                            <a role="button" class="post-form-picture"
+                               uib-tooltip="Usuń zdjęcie"
+                               data-tooltip-placement="top"
+                               data-ng-click="removePicture()"
+                               data-ng-show="data.picture"
+                            >
+                                <i class="fa fa-close"></i>
+                            </a>
+                        </div>
+                        <div class="col-xs-8 text-right">
+                            <button type="submit" class="btn btn-sm btn-success" data-ng-disabled="createPostForm.$invalid">
+                                Dodaj ogłoszenie
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

@@ -10,6 +10,14 @@ module.exports = function(app, secure) {
         .get(postsController.get)
         .post(secure, postsController.create);
 
+    // Get single post.
+    app.route('/api/v1/posts/:postId')
+        .get(postsController.getSingle);
+
+    // Deactivate single post.
+    app.route('/api/v1/posts/:postId/deactivate')
+        .put(secure, postsController.deactivate);
+
     // Get and create comments.
     app.route('/api/v1/posts/:postId/comments')
         .get(commentsController.get)

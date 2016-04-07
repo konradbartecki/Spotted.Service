@@ -1,9 +1,12 @@
 <p data-ng-if="comments.length == 0" class="margin-left-5 margin-bottom-0">
-    <small class="font-color-dark">
+    <small data-ng-if="post.active == true" class="font-color-dark">
         Jeszcze nikt nie dodał komentarza, bądź pierwszy!
         <a data-ng-if="!$root.user" href="/signin" class="font-weight-600">
             Zaloguj się!
         </a>
+    </small>
+    <small data-ng-if="post.active == false" class="font-color-dark">
+        Nikt nie dodał komentarza do tego ogłoszenia!
     </small>
 </p>
 <div class="comment-item" data-ng-repeat="comment in comments | orderBy: '-created' | limitTo: limitTo">

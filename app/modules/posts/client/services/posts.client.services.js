@@ -7,6 +7,11 @@ angular.module('posts')
                     return response.data;
                 });
             },
+            getSinglePost: function(postId) {
+                return $http.get(API.posts + '/' + postId).then(function(response) {
+                    return response.data;
+                });
+            },
             getGroupsByName: function(groupName) {
                 return $http.get(API.groups + '/' + groupName).then(function(response) {
                     return response.data;
@@ -48,6 +53,19 @@ angular.module('posts')
                 }, function errorCallback() {
                     POST_EVENTS.createPostFailed();
                 });
+            },
+            deactivatePost: function(postId) {
+                return $http({
+                    url: API.posts + '/' + postId + '/deactivate',
+                    method: 'PUT',
+                    headers: {
+                        'x-access-token': $rootScope.token
+                    }
+                }).then(function successCallback() {
+                    POST_EVENTS.deactivatePostSuccess();
+                }, function errorCallback() {
+                    POST_EVENTS.deactivatePostFailed();
+                });
             }
         }
     })
@@ -59,6 +77,12 @@ angular.module('posts')
                 ALERT_SERVICE.push('success', 'Ogłoszenie zostało pomyślnie dodane.');
             },
             createPostFailed: function() {
+                ALERT_SERVICE.push('error', 'Coś poszło nie tak. Spróbuj ponownie!');
+            },
+            deactivatePostSuccess: function() {
+                ALERT_SERVICE.push('success', 'Ogłoszenie zostało pomyślnie dezaktywnowane!');
+            },
+            deactivatePostFailed: function() {
                 ALERT_SERVICE.push('error', 'Coś poszło nie tak. Spróbuj ponownie!');
             }
 

@@ -1,14 +1,27 @@
 angular.module('posts')
     .controller('postsController',
         function($scope, POST_SERVICE) {
+
+        })
+
+    .controller('postsListController',
+        function($scope, POST_SERVICE) {
+
             $scope.getPosts = function() {
                 POST_SERVICE.getPosts().then(function(response) {
                     $scope.posts = response;
                 });
             };
+
+            $scope.deactivatePost = function(postId) {
+                POST_SERVICE.deactivatePost(postId).then(function() {
+                    $scope.getPosts();
+                });
+            };
+
         })
 
-    .controller('createPostsController',
+    .controller('postsCreateController',
         function($scope, POST_SERVICE) {
 
             $scope.openCreatePost = function() {
@@ -49,6 +62,20 @@ angular.module('posts')
                 }
             };
 
+        })
+
+    .controller('postsViewController',
+        function($scope, $stateParams, POST_SERVICE) {
+
+            var postId = $stateParams.postId;
+
+            POST_SERVICE.getSinglePost(postId).then(function(response) {
+                $scope.post = response;
+                console.log(response);
+            });
+
         });
+
+
 
 

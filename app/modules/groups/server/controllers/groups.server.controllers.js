@@ -13,13 +13,16 @@ var groupSchema  = require('../models/groups.server.models');
  */
 exports.create = function(req, res) {
 
+    var date = new Date().getTime();
+
     var group = new groupSchema ({
         name: req.body.name,
         province: req.body.province,
         location: {
             latitude: req.body.location.latitude,
             longitude: req.body.location.longitude
-        }
+        },
+        created: date
     });
 
     group.save(function(err) {

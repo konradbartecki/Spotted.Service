@@ -27,10 +27,13 @@ exports.get = function(req, res) {
  */
 exports.create = function(req, res) {
 
+    var date = new Date().getTime();
+
     var comment = new commentsSchema ({
         message: req.body.message,
         post: req.params.postId,
-        author: req.body.author
+        author: req.body.author,
+        created: date
     });
 
     comment.save(function(err) {

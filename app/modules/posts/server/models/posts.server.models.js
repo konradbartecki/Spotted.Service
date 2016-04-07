@@ -23,6 +23,10 @@ var postSchema = new Schema({
         type: ObjectId,
         ref: 'User'
     },
+    active: {
+        type: Boolean,
+        default: true
+    },
     created: {
         type: Date,
         default: Date.now()

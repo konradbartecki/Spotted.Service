@@ -15,13 +15,16 @@ var userSchema  = require('../models/users.server.models');
  */
 exports.signUp = function(req, res) {
 
+    var date = new Date().getTime();
+
     var hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
 
     var user = new userSchema ({
         email: req.body.email,
         password: hash,
         gender: 2,
-        groups: []
+        groups: [],
+        created: date
     });
 
     userSchema.findOne({

@@ -1,11 +1,17 @@
-<section class="posts" data-ng-controller="postsController">
-    <section class="post-create"
-             data-ng-if="$root.user"
-             data-ng-controller="createPostsController"
-             data-ng-include="'app/modules/posts/client/views/posts/_partials/create.client.view.html'">
-    </section>
-    <section class="posts-list"
-             data-ng-init="getPosts()"
-             data-ng-include="'app/modules/posts/client/views/posts/_partials/list.client.view.html'">
-    </section>
-</section>
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="row">
+
+                <div class="col-md-8">
+                    <section class="posts" data-ui-view></section>
+                </div>
+
+                <div class="col-md-4">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
