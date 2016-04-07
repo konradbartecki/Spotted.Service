@@ -4,6 +4,10 @@
   "version": "1.0.0",
   "author": "Adam Wojtaś, Konrad Bartecki",
   "private": true,
+  "ignore": [
+    "node_modules",
+    "bower_components"
+  ],
   "dependencies": {
     "bcryptjs": "^2.3.0",
     "bluebird": "^3.3.4",

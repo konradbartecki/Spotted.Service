@@ -1,0 +1,30 @@
+<p data-ng-if="comments.length == 0" class="margin-left-5 margin-bottom-0">
+    <small data-ng-if="post.active == true" class="font-color-dark">
+        Jeszcze nikt nie dodał komentarza, bądź pierwszy!
+        <a data-ng-if="!$root.user" href="/signin" class="font-weight-600">
+            Zaloguj się!
+        </a>
+    </small>
+    <small data-ng-if="post.active == false" class="font-color-dark">
+        Nikt nie dodał komentarza do tego ogłoszenia!
+    </small>
+</p>
+<div class="comment-item" data-ng-repeat="comment in comments | orderBy: '-created' | limitTo: limitTo">
+    <a data-ng-if="$root.user.id == comment.author._id" data-ng-click="deleteComment(comment._id, post._id)" role="button" class="comment-item-delete" data-uib-tooltip="Usuń komentarz!" data-tooltip-placement="left">
+        <i class="fa fa-close"></i>
+    </a>
+    <div class="comment-item-author">
+        <img class="comment-item-author-picture" src="{{ comment.author.picture }}" alt="">
+    </div>
+    <div class="comment-item-data">
+        <div class="comment-item-content">
+            <p class="comment-item-message">{{ comment.message }}</p>
+            <p class="comment-item-created" am-time-ago="comment.created"></p>
+        </div>
+    </div>
+</div>
+<div class="text-right">
+    <a role="button" data-ng-if="!noMoreComments" class="font-size-12" data-ng-click="showMoreComments(post._id)">
+        Pokaż starsze komentarze
+    </a>
+</div>

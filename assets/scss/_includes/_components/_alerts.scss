@@ -1,14 +1,24 @@
-.alert {
-  padding: 0;
-  margin-bottom: 10px;
-  border: 0 none;
-  border-radius: 0;
-  background-color: transparent;
-  font-size: 12px;
-  &.alert-danger {
-    color: $red;
+.site-alerts {
+  position: fixed;
+  top: 60px; left: 0; right: 0;
+  text-align: center; z-index: 1011;
+  .alert-item {
+    padding: 10px 20px;
+    box-shadow: 0 12px 32px rgba(0,0,0,.2);
+    text-align: center;
+    .alert-message {
+      color: $white;
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+    &.alert-error { background-color: rgba(229, 57, 53, 0.7); }
+    &.alert-success { background-color: rgba(51, 174, 74, 0.7); }
   }
-  &.alert-success {
-    color: $green;
+}
+
+.site-auth {
+  .site-alerts {
+    top: 0;
   }
 }

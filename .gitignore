@@ -1,9 +1,6 @@
 /.idea
 /node_modules
 /bower_components
-/public/uploads
-/app/config/env
-.ntvs_analysis.dat
-.ntvs_analysis.dat.tmp
-bin/Microsoft.NodejsTools.WebRole.dll
-obj/
+/public
+.vs/
+bin/

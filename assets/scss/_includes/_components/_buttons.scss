@@ -1,62 +1,45 @@
 .btn {
-  border-radius: 3px;
-  transition: all 0.2s ease;
+  border: 0 none;
+  border-radius: 2px;
   line-height: 1;
-  &:focus {
-    outline: none!important;
-  }
+  transition: all 0.2s ease;
 
+  &.btn-xs {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  &.btn-sm {
+    padding: 8px 13px;
+    font-size: 13px;
+  }
   &.btn-md {
-    padding: 9px 16px;
-    font-size: 16px;
+    padding: 10px 15px;
+    font-size: 14px;
   }
   &.btn-lg {
-    padding: 14px 18px;
-    font-size: 20px;
-  }
-
-  &.btn-default {
-    border-color: $light;
-    background-color: $light;
-    &:hover {
-      border-color: $dark;
-      background-color: $dark;
-      color: $white;
-    }
+    padding: 10px 16px;
+    font-size: 15px;
   }
 
   &.btn-success {
-    border-color: $green;
     background-color: $green;
+    color: $white;
     &:hover {
-      border-color: $green-light;
       background-color: $green-light;
     }
   }
-
-  &.btn-apps {
-    position: relative;
-    padding: 4px 20px 9px 50px;
-    text-align: left;
-    small {
-      font-size: 10px;
-      strong {
-        font-weight: 600;
-      }
+  &.btn-danger {
+    background-color: $red;
+    color: $white;
+    &:hover {
+      background-color: $red-light;
     }
-    &::before {
-      position: absolute;
-      left: 15px; top: 10px;
-      font: normal normal normal 26px/1 FontAwesome;
-    }
-    &.btn-apple::before {
-      content: '\f179';
-    }
-    &.btn-google::before {
-      content: '\f1a0';
-    }
-    &.btn-windows::before {
-      content: '\f17a';
+  }
+  &.btn-info {
+    background-color: $blue;
+    color: $white;
+    &:hover {
+      background-color: $blue-light;
     }
   }
 

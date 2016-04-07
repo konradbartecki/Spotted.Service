@@ -1,113 +1,81 @@
 angular.module('posts')
+    .controller('postsController',
+        function($scope, POST_SERVICE) {
 
-    .controller('postsController', ['$scope', '$http', '$rootScope', '$window', 'postsFactory',
-        function($scope, $http, $rootScope, $window, postsFactory) {
+        })
 
-            $scope.user = $rootScope.user;
-            $scope.token = $window.localStorage.getItem('token');
-            $scope.api = postsFactory.api;
+    .controller('postsListController',
+        function($scope, POST_SERVICE) {
 
-        }])
-
-    .controller('postsCreateController', ['$scope', '$http', 'Upload', '$state',
-        function($scope, $http, Upload, $state) {
-
-            $scope.post = {
-                user: $scope.user.id,
-                image: null
-            };
-
-            $scope.getGroups = function() {
-                $http({
-                    url: $scope.api.groups,
-                    method: 'GET',
-                    headers: {
-                        'x-access-token': $scope.token
-                    }
-                }).then(function successCallback(response) {
-                    $scope.groups = response.data;
+            $scope.getPosts = function() {
+                POST_SERVICE.getPosts().then(function(response) {
+                    $scope.posts = response;
                 });
             };
 
-            $scope.createPost = function() {
-                if($scope.post.image == null) {
-                    $http({
-                        url: $scope.api.posts,
-                        method: 'POST',
-                        data: $scope.post,
-                        headers: {
-                            'x-access-token': $scope.token
-                        }
-                    }).then(function successCallback() {
-                        $state.reload();
+            $scope.deactivatePost = function(postId) {
+                POST_SERVICE.deactivatePost(postId).then(function() {
+                    $scope.getPosts();
+                });
+            };
+
+        })
+
+    .controller('postsCreateController',
+        function($scope, POST_SERVICE) {
+
+            $scope.openCreatePost = function() {
+                $scope.activeCreatePost = true;
+            };
+
+            $scope.closeCreatePost = function() {
+                $scope.activeCreatePost = false;
+            };
+
+            $scope.data = {
+                picture: null
+            };
+
+            $scope.removePicture = function() {
+                $scope.data.picture = null;
+            };
+
+            $scope.getGroupsByName = function(groupName) {
+                return POST_SERVICE.getGroupsByName(groupName).then(function(response) {
+                    return response;
+                });
+            };
+
+            $scope.createPost = function(data) {
+                if(data.picture == null) {
+                    POST_SERVICE.createPost(data).then(function() {
+                        $scope.data = {};
+                        $scope.getPosts();
+                        $scope.closeCreatePost();
                     });
                 } else {
-                    $scope.createPostUpload($scope.post);
+                    POST_SERVICE.createPostUpload(data).then(function() {
+                        $scope.data = {};
+                        $scope.getPosts();
+                        $scope.closeCreatePost();
+                    });
                 }
             };
 
-            $scope.createPostUpload = function(post) {
-                Upload.upload({
-                    url: $scope.api.posts,
-                    data: {
-                        description: post.description,
-                        image: post.image,
-                        group: post.group,
-                        user: post.user
-                    },
-                    headers: {
-                        'x-access-token': $scope.token
-                    }
-                }).then(function successCallback() {
-                    $state.reload();
-                });
-            };
+        })
 
-        }])
+    .controller('postsViewController',
+        function($scope, $stateParams, POST_SERVICE) {
 
-    .controller('postsListController', ['$scope', '$http',
-        function($scope, $http) {
+            var postId = $stateParams.postId;
 
-            $scope.commentsIsCollapsed = true;
+            POST_SERVICE.getSinglePost(postId).then(function(response) {
+                $scope.post = response;
+                console.log(response);
+            });
 
-            $scope.getPosts = function() {
-                $http({
-                    url: $scope.api.posts,
-                    method: 'GET',
-                    headers: {
-                        'x-access-token': $scope.token
-                    }
-                }).then(function successCallback(response){
-                    $scope.posts = response.data;
+        });
 
-                    response.data.forEach(function(data, key) {
-                        $scope.posts[key].number = key;
-                    });
-                });
-            };
 
-            $scope.getPostAuthor = function(id, number) {
-                $http({
-                    url: $scope.api.posts + '/' + id + '/author',
-                    method: 'GET',
-                    headers: {
-                        'x-access-token': $scope.token
-                    }
-                }).then(function successCallback(response) {
-                    $scope.posts[number].authorDetails = response.data;
-                });
-            };
 
-            $scope.getPostGroup = function(id, number) {
-                $http({
-                    url: $scope.api.posts + '/' + id + '/group',
-                    method: 'GET',
-                    headers: {
-                        'x-access-token': $scope.token
-                    }
-                }).then(function successCallback(response) {
-                    $scope.posts[number].groupDetails = response.data;
-                });
-            };
 
-        }]);

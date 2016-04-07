@@ -2,9 +2,9 @@
 
 module.exports = function(app) {
 
-    var core = require('../controllers/core.server.controllers');
+    var coreController = require('../controllers/core.server.controllers');
 
     app.route('/*')
-        .get(core.index);
+        .get(coreController.index);
 
 };

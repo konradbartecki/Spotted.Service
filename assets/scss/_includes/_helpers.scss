@@ -48,7 +48,151 @@
 }
 
 .font-color- {
+  &white {
+    color: $white;
+    &-on-hover {
+      color: $white;
+    }
+  }
+  &black {
+    color: $black;
+    &-on-hover {
+      color: $black;
+    }
+  }
+  &dark {
+    color: $dark;
+    &-on-hover {
+      color: $dark;
+    }
+  }
+  &light {
+    color: $light;
+    &-on-hover {
+      color: $light;
+    }
+  }
   &grey {
     color: $grey;
+    &-on-hover {
+      color: $grey;
+    }
+  }
+  &grey-light {
+    color: $grey-light;
+    &-on-hover {
+      color: $grey-light;
+    }
+  }
+  &green {
+    color: $green;
+    &-on-hover {
+      color: $green;
+    }
+  }
+  &green-light {
+    color: $green-light;
+    &-on-hover {
+      color: $green-light;
+    }
+  }
+  &blue {
+    color: $blue;
+    &-on-hover {
+      color: $blue;
+    }
+  }
+  &blue-light {
+    color: $blue-light;
+    &-on-hover {
+      color: $blue-light;
+    }
+  }
+  &red {
+    color: $red;
+    &-on-hover {
+      color: $red;
+    }
+  }
+  &red-light {
+    color: $red-light;
+    &-on-hover {
+      color: $red-light;
+    }
+  }
+}
+
+.bg- {
+  &white {
+    background-color: $white;
+    &-on-hover {
+      background-color: $white;
+    }
+  }
+  &black {
+    background-color: $black;
+    &-on-hover {
+      background-color: $black;
+    }
+  }
+  &dark {
+    background-color: $dark;
+    &-on-hover {
+      background-color: $dark;
+    }
+  }
+  &light {
+    background-color: $light;
+    &-on-hover {
+      background-color: $light;
+    }
+  }
+  &grey {
+    background-color: $grey;
+    &-on-hover {
+      background-color: $grey;
+    }
+  }
+  &grey-light {
+    background-color: $grey-light;
+    &-on-hover {
+      background-color: $grey-light;
+    }
+  }
+  &green {
+    background-color: $green;
+    &-on-hover {
+      background-color: $green;
+    }
+  }
+  &green-light {
+    background-color: $green-light;
+    &-on-hover {
+      background-color: $green-light;
+    }
+  }
+  &blue {
+    background-color: $blue;
+    &-on-hover {
+      background-color: $blue;
+    }
+  }
+  &blue-light {
+    background-color: $blue-light;
+    &-on-hover {
+      background-color: $blue-light;
+    }
+  }
+  &red {
+    background-color: $red;
+    &-on-hover {
+      background-color: $red;
+    }
+  }
+  &red-light {
+    background-color: $red-light;
+    &-on-hover {
+      background-color: $red-light;
+    }
   }
 }

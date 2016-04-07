@@ -1,71 +1,33 @@
 angular.module('users')
 
-    .controller('authController', ['$scope', '$uibModalInstance', '$uibModal', function($scope, $uibModalInstance, $uibModal) {
+    .controller('usersController',
+        function($scope, USER_SERVICE) {
 
-        $scope.closeModal = function() {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-        $scope.switchModal = function(tpl) {
-            $scope.closeModal();
-            $uibModal.open({
-                animation: false,
-                templateUrl: 'app/modules/users/client/views/authentication/' + tpl + '/' + tpl + '.client.view.html',
-                controller: 'authController',
-                size: 'lg'
+            USER_SERVICE.getCurrentUser().then(function(response) {
+                $scope.currentUser = response;
             });
-        };
 
-    }])
+        })
 
-    .controller('signinController', ['$scope', '$http', 'usersFactory', '$window', '$state',
-        function($scope, $http, usersFactory, $window, $state) {
-            $scope.message = {};
+    .controller('usersPostsController',
+        function($scope, USER_SERVICE) {
 
-            $scope.signin = function() {
-                $http({
-                    url: usersFactory.api.login,
-                    method: 'POST',
-                    data: $scope.user
-                }).then(function successCallback(response) {
-                    $window.localStorage.setItem('token', response.data.token);
-                    $scope.closeModal();
-                    $state.go('posts');
-                }, function errorCallback(response) {
-                    var status = response.status;
-                    if(status == 400) {
-                        $scope.message.error = usersFactory.messages.error.unknown;
-                    } else if(status == 401) {
-                        $scope.message.error = usersFactory.messages.error.conflict;
-                    }
-                });
+            USER_SERVICE.getUserPosts().then(function(response) {
+                $scope.userPosts = response;
+            });
+
+        })
+
+    .controller('usersSettingsController',
+        function($scope, USER_SERVICE) {
+
+            $scope.changePassword = function(data) {
+                USER_SERVICE.changePassword(data);
             };
-        }])
 
-    .controller('signupController', ['$scope', '$http', 'usersFactory', '$uibModal',
-        function($scope, $http, usersFactory, $uibModal) {
-            $scope.message = {};
-
-            $scope.signup = function() {
-                $http({
-                    url: usersFactory.api.register,
-                    method: 'POST',
-                    data: $scope.user
-                }).then(function successCallback() {
-                    $scope.closeModal();
-                    $uibModal.open({
-                        animation: false,
-                        templateUrl: 'app/modules/users/client/views/authentication/signin/signin.client.view.html',
-                        controller: 'authController',
-                        size: 'lg'
-                    });
-                }, function errorCallback(response) {
-                    var status = response.status;
-                    if(status == 400 || status == 500) {
-                        $scope.message.error = usersFactory.messages.error.unknown;
-                    } else if(status == 409) {
-                        $scope.message.error = usersFactory.messages.error.emailExists;
-                    }
-                });
+            $scope.changePicture = function(data) {
+                USER_SERVICE.changePicture(data);
             };
-        }]);
+
+        });
+

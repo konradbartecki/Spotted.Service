@@ -1,0 +1,9 @@
+<section class="comments">
+    <section class="comment-create"
+             data-ng-if="$root.user && post.active == true"
+             data-ng-include="'app/modules/posts/client/views/comments/_partials/create.client.view.html'">
+    </section>
+    <section class="comments-list"
+             data-ng-include="'app/modules/posts/client/views/comments/_partials/list.client.view.html'">
+    </section>
+</section>

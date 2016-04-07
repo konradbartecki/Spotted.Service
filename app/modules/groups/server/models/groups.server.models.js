@@ -8,12 +8,15 @@ var mongoose    = require('mongoose'),
     ObjectId    = Schema.ObjectId;
 
 /**
- * Posts schema.
+ * Group schema.
  */
 var groupSchema = new Schema({
 
     id: ObjectId,
-    name: String,
+    name: {
+        type: String,
+        unique: true
+    },
     province: String,
     location: {
         latitude: Number,

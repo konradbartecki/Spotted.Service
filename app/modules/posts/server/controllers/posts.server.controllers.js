@@ -6,17 +6,16 @@
 var express     = require('express'),
     app         = express();
 
-var postSchema  = require('../models/posts.server.models'),
-    groupSchema = require('../../../groups/server/models/groups.server.models.js'),
-    userSchema  = require('../../../users/server/models/users.server.models.js');
+var postSchema  = require('../models/posts.server.models');
 
 /**
  * Get posts.
  */
 exports.get = function(req, res) {
-    postSchema.find(function(err, posts) {
+    postSchema.find().sort('-created').populate('author', 'picture').populate('group', 'name').exec(function(err, posts) {
         if(err) {
-            res.send(err);
+            res.status(500);
+            res.json({ status: 500 });
         } else {
             res.json(posts);
         }
@@ -24,58 +23,13 @@ exports.get = function(req, res) {
 };
 
 /**
- * Create posts.
+ * Get single post.
  */
-exports.create = function(req, res) {
-
-    var date = new Date().getTime();
-    date += (60 * 60 * 1000);
-
-    var image = null;
-
-    if(req.file) {
-        image = '/uploads/images/posts/' + req.file.filename;
-    }
-    
-    groupSchema.findOne({ _id : req.body.group }, function(err, group) {
+exports.getSingle = function(req, res) {
+    postSchema.findOne({ _id: req.params.postId }).populate('author', 'picture').populate('group', 'name').exec(function(err, post) {
         if(err) {
-            res.send(err);
-        } else {
-            var post = new postSchema ({
-                description: req.body.description,
-                image: image,
-                created: date,
-                group: {
-                    id: req.body.group,
-                    name: group.name
-                },
-                author: req.body.user
-            });
-            
-            post.save(function(err) {
-                if (err) {
-                    // Error unknown.
-                    res.status(500);
-                    res.json({ status: 1500 });
-                } else {
-                    // Created
-                    res.status(201);
-                    res.json({ status: 201 });
-                }
-            });
-            
-        }
-    });
-
-};
-
-/**
- * Get post.
- */
-exports.getPost = function(req, res) {
-    postSchema.findOne({ _id : req.params.id }, function(err, post) {
-        if(err) {
-            res.send(err);
+            res.status(500);
+            res.json({ status: 500 });
         } else {
             res.json(post);
         }
@@ -83,43 +37,59 @@ exports.getPost = function(req, res) {
 };
 
 /**
- * Get post category.
+ * Create post.
  */
-exports.getPostGroup = function(req, res) {
+exports.create = function(req, res) {
 
-    postSchema.findOne({ _id : req.params.id }, function(err, post) {
-        if(err) {
-            res.send(err);
+    var date = new Date().getTime();
+
+    var picture = null;
+
+    if(req.file) {
+        picture = '/uploads/images/' + req.file.filename;
+    }
+
+    var post = new postSchema ({
+        message: req.body.message,
+        picture: picture,
+        group: req.body.group,
+        author: req.body.author,
+        created: date
+    });
+
+    post.save(function(err) {
+        if (err) {
+            // Error unknown.
+            res.status(500);
+            res.json({ status: 1500 });
         } else {
-            groupSchema.findOne({ _id : post.group }, function(err, group) {
-                if(err) {
-                    res.send(err);
-                } else {
-                    res.json(group);
-                }
-            });
+            // Created
+            res.status(201);
+            res.json({ status: 201 });
         }
     });
 
 };
 
 /**
- * Get post author.
+ * Post deactivate.
  */
-exports.getPostAuthor = function(req, res) {
-
-    postSchema.findOne({ _id : req.params.id }, function(err, post) {
+exports.deactivate = function(req, res) {
+    postSchema.findOne({ _id: req.params.postId }, function(err, post) {
         if(err) {
-            res.send(err);
+            res.status(500);
+            res.json({ status: 500 });
         } else {
-            userSchema.findOne({ _id : post.author }, function(err, user) {
+            post.active = false;
+            post.save(function(err) {
                 if(err) {
-                    res.send(err);
+                    res.status(500);
+                    res.json({ status: 500 });
                 } else {
-                    res.json(user);
+                    res.status(201);
+                    res.json({ status: 201 });
                 }
-            });
+            })
         }
     });
-
 };

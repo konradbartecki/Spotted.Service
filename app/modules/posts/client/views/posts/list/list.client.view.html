@@ -1,0 +1,50 @@
+<section data-ng-if="$root.user" data-ng-include="'app/modules/posts/client/views/posts/create/create.client.view.html'"></section>
+
+<section class="posts-list" data-ng-init="getPosts()">
+    <div class="post-item" data-ng-repeat="post in posts" data-ng-class="{ 'post-item-deactive': post.active == false }">
+        <div class="post-item-more">
+            <a role="button" data-ui-sref="posts.view({ postId: post._id })">
+                <i class="fa fa-arrows-h"></i>
+            </a>
+        </div>
+        <div class="post-item-author">
+            <img class="post-item-author-picture" src="{{ post.author.picture }}" alt="">
+        </div>
+        <div class="post-item-data">
+            <div class="post-item-heading">
+                <h3 class="post-item-title">
+                    <a class="post-item-group" href="#">{{ post.group.name }}</a>,
+                    <span class="post-item-created" am-time-ago="post.created"></span>
+                </h3>
+            </div>
+            <div class="post-item-content">
+                <p class="post-item-message">
+                    {{ post.message }}
+                </p>
+                <img data-ng-if="post.picture" class="post-item-picture" src="{{ post.picture }}" alt="">
+            </div>
+            <div class="post-item-footer">
+                <ul class="post-item-list">
+                    <li data-uib-tooltip="Pokaż/ukryj komentarze" data-tooltip-placement="top">
+                        <a role="button" data-ng-click="commentsIsCollapsed = !commentsIsCollapsed">
+                            <i class="fa fa-comments"></i>
+                            <small>Komentarze</small>
+                        </a>
+                    </li>
+                    <li data-ng-if="$root.user.id == post.author._id && post.active == true" data-uib-tooltip="Dezaktywuj ogłoszenie" data-tooltip-placement="top">
+                        <a role="button" class="font-color-red-light" data-ng-click="deactivatePost(post._id)">
+                            <i class="fa fa-close"></i>
+                            <small>Dezaktywuj ogłoszenie</small>
+                        </a>
+                    </li>
+                </ul>
+                <div class="post-item-comments"
+                     data-uib-collapse="!commentsIsCollapsed"
+                     data-ng-controller="commentsPostsController"
+                     data-expanded="getComments(post._id)"
+                     data-ng-include="'app/modules/posts/client/views/comments/comments.client.view.html'">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -9,12 +9,44 @@ var express     = require('express'),
 var groupSchema  = require('../models/groups.server.models');
 
 /**
- * Get groups function.
+ * Create group.
+ */
+exports.create = function(req, res) {
+
+    var date = new Date().getTime();
+
+    var group = new groupSchema ({
+        name: req.body.name,
+        province: req.body.province,
+        location: {
+            latitude: req.body.location.latitude,
+            longitude: req.body.location.longitude
+        },
+        created: date
+    });
+
+    group.save(function(err) {
+        if(err) {
+            // Error unknown.
+            res.status(500);
+            res.json({ status: 500 });
+        } else {
+            // Group created
+            res.status(201);
+            res.json({ status: 201 });
+        }
+    });
+
+};
+
+/**
+ * Get all groups.
  */
 exports.get = function(req, res) {
-    groupSchema.find(function(err, groups){
+    groupSchema.find(function(err, groups) {
         if(err) {
-            res.send(err);
+            res.status(500);
+            res.json({ status: 500 });
         } else {
             res.json(groups);
         }
@@ -26,47 +58,16 @@ exports.get = function(req, res) {
  */
 exports.getByName = function(req, res) {
     groupSchema.find({
-        name: {
-            "$regex": req.params.name,
+        "name": {
+            "$regex": req.params.groupName,
             "$options": "i"
         }
     }, function(err, groups) {
         if(err) {
-            res.send(err);
-        } else {
-            res.json(groups);
-        }
-    });
-};
-
-/**
- * Create group function.
- */
-exports.create = function(req, res) {
-
-    var date = new Date().getTime();
-    date += (60 * 60 * 1000);
-
-    var group = new groupSchema ({
-
-        name: req.body.name,
-        province: req.body.province,
-        location: {
-            latitude: req.body.latitude,
-            longitude: req.body.longitude
-        },
-        created: date
-
-    });
-
-    group.save(function(err) {
-        if(err) {
             res.status(500);
             res.json({ status: 500 });
         } else {
-            res.status(201);
-            res.json({ status: 201 });
+            res.json(groups);
         }
-    });
-
+    })
 };

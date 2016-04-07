@@ -8,17 +8,13 @@ var mongoose    = require('mongoose'),
     ObjectId    = Schema.ObjectId;
 
 /**
- * Posts schema.
+ * Group schema.
  */
 var postSchema = new Schema({
 
     id: ObjectId,
-    description: String,
-    image: String,
-    created: {
-        type: Date,
-        default: Date.now()
-    },
+    message: String,
+    picture: String,
     group: {
         id: {
             type: ObjectId,
@@ -29,6 +25,14 @@ var postSchema = new Schema({
     author: {
         type: ObjectId,
         ref: 'User'
+    },
+    active: {
+        type: Boolean,
+        default: true
+    },
+    created: {
+        type: Date,
+        default: Date.now()
     }
 
 });

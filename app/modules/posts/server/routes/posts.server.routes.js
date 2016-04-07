@@ -2,19 +2,29 @@
 
 module.exports = function(app, secure) {
 
-    var postsController = require('../controllers/posts.server.controllers');
+    var postsController = require('../controllers/posts.server.controllers'),
+        commentsController = require('../controllers/comments.server.controllers');
 
+    // Get and create posts.
     app.route('/api/v1/posts')
-        .post(secure, postsController.create)
-        .get(secure, postsController.get);
+        .get(postsController.get)
+        .post(secure, postsController.create);
 
-    app.route('/api/v1/posts/:id')
-        .get(secure, postsController.getPost);
+    // Get single post.
+    app.route('/api/v1/posts/:postId')
+        .get(postsController.getSingle);
 
-    app.route('/api/v1/posts/:id/group')
-        .get(secure, postsController.getPostGroup);
+    // Deactivate single post.
+    app.route('/api/v1/posts/:postId/deactivate')
+        .put(secure, postsController.deactivate);
 
-    app.route('/api/v1/posts/:id/author')
-        .get(secure, postsController.getPostAuthor);
+    // Get and create comments.
+    app.route('/api/v1/posts/:postId/comments')
+        .get(commentsController.get)
+        .post(secure, commentsController.create);
+
+    // Delete comment.
+    app.route('/api/v1/posts/comments/:commentId')
+        .delete(secure, commentsController.delete);
 
 };

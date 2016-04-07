@@ -17,13 +17,25 @@ var userSchema = new Schema({
         type: String,
         unique: true
     },
-    password: String,
+    password: {
+        type: String
+    },
+    role: String,
+    picture: {
+        type: String,
+        default: '/assets/img/users/placeholder.jpg'
+    },
+    gender: Number,
+    groups: [{
+        group: {
+            type: ObjectId,
+            ref: 'Group'
+        }
+    }],
     created: {
         type: Date,
         default: Date.now()
-    },
-    sex: Number,
-    groups: []
+    }
 
 });
 
